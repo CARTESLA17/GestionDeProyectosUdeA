@@ -196,7 +196,8 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	 * en el navegador.
 	 */
 	public void doAfterCompose(Component comp) throws Exception {
-        super.doAfterCompose(comp);        
+        super.doAfterCompose(comp);   
+        System.out.println("cualquier cosa");
 		if( (Sessions.getCurrent().hasAttribute("usuario")) ){
 			usuarioDto = (UsuarioDto)(Sessions.getCurrent().getAttribute("usuario"));
 		}else{
