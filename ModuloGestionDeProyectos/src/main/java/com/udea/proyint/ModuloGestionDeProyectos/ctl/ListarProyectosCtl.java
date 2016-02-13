@@ -52,6 +52,7 @@ public class ListarProyectosCtl extends GenericForwardComposer{
 	private String parteIdLblRol="lblr_";
 	private String parteIdLblAvance="lvla_";
 	private String parteIdCbAcciones="cba_";
+	private int numero;
 	
 	private final int ROLRESPONSABLE=1;
 	private final int ROLASESOR=2; 
