@@ -54,6 +54,7 @@ public class CrearPersonaCtl extends GenericForwardComposer {
 	 */
 	public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp); 
+        System.out.println("Que bonita vecindad");
         cargarComboBoxTipoId();
         cargarComboBoxRoles();
     }
