@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @version $Id: applicationContext.xml 561608 2007-08-01 00:33:12Z vgritsenko 
+	$ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+        
+	<!-- BEANS CONFIGURACION JNDI DATASOURCE -->
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/gestionDeProyectosBDOracle" />
+	</bean> 
+		
+	<!-- BEANS  CONFIGURACION DATASOURCE-->
+   <!--  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+            <property name="driverClassName">
+                    <value>oracle.jdbc.driver.OracleDriver</value>  
+            </property>
+            <property name="url">
+                    <value>jdbc:oracle:thin:@localhost:1521:xe</value>
+            </property>
+            <property name="username">
+                    <value>proyint</value>
+            </property>
+            <property name="password"> 
+                    <value>proyint</value>
+            </property>
+    </bean>--> 
+        
+        
+   <!--   <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>-->
+
+	<!-- BEANS CONFIGURACION HIBERNATE -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mappingResources">
+	        <list>
+	            <value>com/udea/proyint/Dominio/mapping/EstadoDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/PermisoDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/RolSistemaDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/RolXPermisoDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/TipoDocumentoDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/UsuarioDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/TiposDeProyectoDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/ModalidadesDelProyectoDto.hbm.xml</value>		        
+		        <value>com/udea/proyint/Dominio/mapping/AsesorXProyectoDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/EstadoDelProyectoDto.hbm.xml</value>		        
+		        <value>com/udea/proyint/Dominio/mapping/ObjetivoEspecificoDto.hbm.xml</value>		        
+		        <value>com/udea/proyint/Dominio/mapping/ParticipanteXProyectoDto.hbm.xml</value>		        
+		        <value>com/udea/proyint/Dominio/mapping/ProyectoDto.hbm.xml</value>
+		        <value>com/udea/proyint/Dominio/mapping/RolProyectoDto.hbm.xml</value>
+	        </list>
+	    </property>		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle10gDialect
+				</prop>
+				<prop key="hibernate.show_sql">
+					false
+				</prop>
+				<prop key="hibernate.transaction.factory_class">
+					org.hibernate.transaction.JDBCTransactionFactory
+				</prop>
+			</props>
+		</property>
+					
+	</bean>
+	
+	
+
+	<!-- BEANS PARA LOS CONTROLADORES -->
+	<bean id="beanLoginCtl" class="com.udea.proyint.Administracion.ctl.LoginCtl" scope="prototype"> 
+ 		    <property name="personaNgc" ref="beanPersonaNgc"></property>
+	</bean>
+	
+	<bean id="beanMenuCtl" class="com.udea.proyint.Administracion.ctl.MenuCtl" scope="prototype"> 
+ 		    
+	</bean> 
+	
+	<bean id="beanCrearProyectoCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.CrearProyectoCtl" scope="prototype"> 
+ 		<property name="tiposDeProyectoNgc" ref="beanTiposDeProyectoNgc"></property>
+ 		<property name="modalidadesNgc" ref="beanModalidadesDelProyectoNgc"></property>
+ 		<property name="tipoIdentificacionNgc" ref="beanTipoIdentificacionNgc"></property>
+ 		<property name="personaNgc" ref="beanPersonaNgc"></property>
+ 		<property name="proyectoNgc" ref="beanProyectoNgc"></property>	
+	</bean>
+	
+	<bean id="beanListarProyectosCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.ListarProyectosCtl" scope="prototype"> 
+ 		<property name="estadosDelProyectoNgc" ref="beanEstadosDelProyectoNgc"></property>	
+ 		<property name="proyectoNgc" ref="beanProyectoNgc"></property>
+ 		<property name="asesorXProyectoNgc" ref="beanAsesorXProyectoNgc"></property>
+ 		<property name="participanteXProyectoNgc" ref="beanParticipanteXProyectoNgc"></property>
+ 	</bean>
+	
+	<bean id="beanCrearPersonaCtl" class="com.udea.proyint.Administracion.ctl.CrearPersonaCtl" scope="prototype"> 
+ 		<property name="tipoIdentificacionNgc" ref="beanTipoIdentificacionNgc"></property>
+ 		<property name="tipoRolNgc" ref="beanTipoRolNgc"></property>
+ 		<property name="personaNgc" ref="beanPersonaNgc"></property>
+	</bean>  
+	
+	<bean id="beanModificarPersonaCtl" class="com.udea.proyint.Administracion.ctl.ModificarPersonaCtl" scope="prototype"> 
+ 		<property name="tipoIdentificacionNgc" ref="beanTipoIdentificacionNgc"></property>
+ 		<property name="personaNgc" ref="beanPersonaNgc"></property>
+ 	</bean>  
+
+	<!-- BEANS PARA LOS NEGOCIOS -->
+	<bean id="beanModalidadesDelProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ModalidadesDelProyectoNgc" scope="singleton">
+		<property name="modalidadesDao" ref="beanModalidadesDelProyectoDao"></property>
+	</bean>	
+	
+	<bean id="beanTiposDeProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.TiposDeProyectoNgc" scope="singleton">
+		<property name="tiposDeProyectosDao" ref="beanTiposDeProyectoDao"></property>
+	</bean>	
+	
+	<bean id="beanPersonaNgc" class="com.udea.proyint.Administracion.ngc.PersonaNgc" scope="singleton">
+		<property name="personaDao" ref="beanPersonaDao"></property>
+	</bean>		
+	
+	<bean id="beanTipoIdentificacionNgc" class="com.udea.proyint.Administracion.ngc.TipoIdentificacionNgc" scope="singleton">
+		<property name="tipoIdentificacionDao" ref="beanTipoIdentificacionDao"></property>
+	</bean>
+	
+	<bean id="beanProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ProyectoNgc" scope="singleton">
+		<property name="proyectoDao" ref="beanProyectoDao"></property>
+	</bean>
+	
+	<bean id="beanEstadosDelProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.EstadosDelProyectoNgc" scope="singleton">
+		<property name="estadosDelProyectoDao" ref="beanEstadosDelProyectoDao"></property>
+	</bean>
+	
+	<bean id="beanAsesorXProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.AsesorXProyectoNgc" scope="singleton">
+		<property name="asesorXProyectoDao" ref="beanAsesorXProyectoDao"></property>
+	</bean>
+	
+	<bean id="beanParticipanteXProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ParticipanteXProyectoNgc" scope="singleton">
+		<property name="participanteXProyectoDao" ref="beanParticipanteXProyectoDao"></property>
+	</bean>
+	
+	<bean id="beanTipoRolNgc" class="com.udea.proyint.Administracion.ngc.TipoRolNgc" scope="singleton">
+		<property name="TipoRolDao" ref="beanTipoRolDao"></property>
+	</bean>
+
+	<!-- BEANS PARA LA PERSISTENCIA -->
+	<bean id="beanModalidadesDelProyectoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.ModalidadesDelProyectoDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanTiposDeProyectoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.TiposDeProyectoDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanPersonaDao" class="com.udea.proyint.Administracion.dao.PersonaDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanTipoIdentificacionDao" class="com.udea.proyint.Administracion.dao.TipoIdentificacionDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="beanProyectoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.ProyectoDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanEstadosDelProyectoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.EstadosDelProyectoDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanAsesorXProyectoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.AsesorXProyectoDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanParticipanteXProyectoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.ParticipanteXProyectoDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanTipoRolDao" class="com.udea.proyint.Administracion.dao.TipoRolDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+
+</beans>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Created by ZK Studio
+-->
+
+<zk>
+    
+	<system-config>
+		<label-location>/recursos/etiquetas/etiquetasLogin.properties</label-location>
+		<label-location>/recursos/etiquetas/etiquetasMenu.properties</label-location>
+		<label-location>/recursos/etiquetas/etiquetasCrearProyecto.properties</label-location>
+		<label-location>/recursos/etiquetas/etiquetasCrearPersona.properties</label-location>
+		<label-location>/recursos/etiquetas/etiquetasListarProyectos.properties</label-location>	
+		<label-location>/recursos/etiquetas/etiquetasModificarPersona.properties</label-location>
+	</system-config>
+	
+	<library-property>
+		<name>org.zkoss.web.preferred.locale</name>
+		<value>es</value>
+	</library-property>
+	
+	
+</zk>

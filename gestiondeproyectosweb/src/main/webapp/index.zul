@@ -1,0 +1,11 @@
+	<?page title="Proyecto Integrador" contentType="text/html;charset=UTF-8"?>
+<!-- 	<?link rel="shortcut icon" href="/adm/res/favicon.ico" type="image/x-icon"?> -->
+<!-- 	<?link rel="icon" href="/adm/res/favicon.ico" type="image/x-icon"?> -->
+	<zk>
+	<zscript>
+		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/login.zul");
+		<!-- java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/crearProyecto.zul"); -->
+		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+		Executions.createComponentsDirectly(zulReader,"zul",null,new HashMap());		
+	</zscript>
+	</zk>
