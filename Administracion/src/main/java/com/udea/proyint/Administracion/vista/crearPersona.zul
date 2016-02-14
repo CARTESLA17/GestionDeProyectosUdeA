@@ -1,0 +1,130 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>  
+<?page title="Crear Persona" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window  apply="${beanCrearPersonaCtl}"  contentStyle="border: 0px solid #FFFFFF">
+	<style src="/recursos/css/estilos.css" />
+		<div align="center" sclass="formulario">
+			<vbox align="center" pack="center" width="700px">
+				<separator height="2px"></separator>
+				<label id="lblCrearPersona" value="${labels.lblCrearPersona}" sclass="tituloCrearPersona" />
+				<separator height="2px"></separator>
+				
+				<div height="40px" sclass="divSeccionFormularioCrearPersona">
+					<separator height="20px"></separator>
+					<div align="left">
+						<space spacing="50px"></space>
+						<label width="250px" id="lblIdentificacion" value="${labels.lblIdentificacion}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="20px"></space>
+						<combobox id="cbxIdentificacion" width="185px" placeholder="${labels.cbxTipoIdentificacion}" 
+							visible="true" readonly="true">
+						</combobox>
+						<space spacing="10px"></space>
+						<textbox id="tbxIdentificacion" placeholder="${labels.tbxIdentificacion}"
+						visible="true" style="border:1px solid black" width="115px"
+						rows="1" />
+					</div>
+					
+					<separator height="15px"></separator>	
+					<div align="left">
+						<space spacing="47px"></space>
+						<label width="250px" id="lblNombres" value="${labels.lblNombres}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="53px"></space>
+						<textbox id="tbxNombres"
+							visible="true" style="border:1px solid black" width="318px"
+							rows="1" />
+					</div>
+					
+					<separator height="15px"></separator>
+					<div align="left">
+						<space spacing="47px"></space>
+						<label width="250px" id="lblApellidos" value="${labels.lblApellidos}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="51px"></space>
+						<textbox id="tbxApellidos"
+							visible="true" style="border:1px solid black" width="318px"
+							rows="1" />
+					</div>
+					
+					<separator height="15px"></separator>
+					<div align="left">
+						<space spacing="47px"></space>
+						<label width="250px" id="lblEmail" value="${labels.lblEmail}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="78px"></space>	
+						<textbox id="tbxEmail"
+							visible="true" style="border:1px solid black" width="318px"
+							rows="1" />
+					</div>
+					<separator height="20px"></separator>
+				</div>
+				
+				<separator height="10px"></separator>
+				
+				<div height="40px" sclass="divSeccionFormularioCrearPersona">
+					<separator height="20px"></separator>
+					<div align="left">
+						<space spacing="47px"></space>
+						<label width="250px" id="lblUsuario" value="${labels.lblUsuario}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="61px"></space>
+						<textbox id="tbxUsuario"
+							visible="true" style="border:1px solid black" width="318px"
+							rows="1" />
+					</div>
+					
+					<separator height="15px"></separator>
+					<div align="left">
+						<space spacing="47px"></space>
+						<label width="250px" id="lblClave" value="${labels.lblClave}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="77px"></space>
+						<textbox id="tbxClave"
+							visible="true" style="border:1px solid black" width="318px"
+							rows="1" type="password" />
+					</div>
+					
+					<separator height="15px"></separator>
+					<div align="left">
+						<space spacing="47px"></space>
+						<label width="250px" id="lblConfirmarClave" value="${labels.lblConfirmarClave}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="2px"></space>
+						<textbox id="tbxConfirmarClave"
+							visible="true" style="border:1px solid black" width="318px"
+							rows="1" type="password" />
+					</div>
+					
+					<separator height="20px"></separator>
+					<div align="left">
+						<space spacing="47px"></space>
+						<label width="250px" id="lblRol" value="${labels.lblRol}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+						<space spacing="91px"></space>
+						<combobox id="cbxRol" width="185px" 
+							visible="true" readonly="true">
+						</combobox>
+					</div>
+					<separator height="20px"></separator>
+				</div>
+				
+				<separator height="10px"></separator>
+				
+				<hbox>
+					<button id="btnCrear" label="${labels.btnCrear}"
+						style="border:1px solid black" />
+				</hbox>
+				
+			</vbox>
+		</div>
+	</window>
+</zk>

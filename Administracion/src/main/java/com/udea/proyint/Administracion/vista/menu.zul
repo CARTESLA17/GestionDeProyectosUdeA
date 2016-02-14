@@ -1,0 +1,38 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?page title="GestionDeProyectos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="/recursos/css/estilos.css" />
+	<div apply="${beanMenuCtl}">  
+		<div align="right" sclass="divSeccionSuperiorMenu">	
+			<div align="center">		
+				<label value="${labels.lblTituloMenu}" sclass="tituloMenu"/>
+			</div>
+			<label id="lblNombreUsuario" visible="true" style="color: rgb(236,236,236)" />			
+			<label value="|" style="color:white" />
+			<label id="lblCerrarSesion" value="${labels.lblCerrarSesion}" style="color: rgb(236,236,236)" />
+			<space bar="false" spacing="5px" />												
+		</div>		
+		<div>
+			<menubar id="menubar" autodrop="true">
+		        <menu label="Gestionar Persona">
+		            <menupopup>
+		                <menuitem label="Crear Persona" id="crearPersona"/>
+		                <menuitem label="Modificiar Persona" id="modificarPersona"/>
+		                <menuitem label="Ver Persona"/>
+		                <menuseparator></menuseparator>
+		            </menupopup> 
+		        </menu>
+		        <menu label="Gestionar Proyecto">
+		            <menupopup>
+		                <menuitem label="Crear Proyecto" id="crearProyecto"/>
+		                <menuitem label="Listar Proyectos" id="listarProyectos"/>
+		                <menuseparator></menuseparator>
+		            </menupopup>
+		        </menu>
+			</menubar>
+		</div>
+		
+		<div align="center" id="div">			
+		</div>		
+	</div>
+</zk>

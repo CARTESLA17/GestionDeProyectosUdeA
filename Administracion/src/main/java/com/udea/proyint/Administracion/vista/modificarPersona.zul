@@ -1,0 +1,37 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>  
+<?page title="Modificar Persona" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window apply="${beanModificarPersonaCtl}"  contentStyle="border: 0px solid #FFFFFF">
+<style src="/recursos/css/estilos.css" />
+	<div align="center" sclass="formulario">
+		<vbox align="center" pack="center" width="700px">
+			<separator height="2px"></separator>
+			<label id="lblModificarPersona" value="${labels.lblModificarPersona}" sclass="tituloCrearPersona" />
+			<separator height="2px"></separator>
+					
+			<div height="40px" sclass="divSeccionFormularioCrearPersona">
+				<separator height="20px"></separator>
+				<div align="left">
+					<space spacing="50px"></space>
+					<label width="250px" id="lblIdentificacion" value="${labels.lblIdentificacion}"
+							style="font-size:15px;color:black;font-weight:bold"
+							visible="true" />
+					<space spacing="20px"></space>
+					<combobox id="cbxIdentificiacion" width="185px" placeholder="${labels.cbxTipoIdentificacion}" 
+						visible="true" readonly="true">
+					</combobox>
+					<space spacing="10px"></space>
+					<textbox id="tbxIdentificacion" placeholder="${labels.tbxIdentificacion}"
+					visible="true" style="border:1px solid black" width="115px"
+					rows="1" />
+					<hbox>
+						<button id="btnBuscar" label="${labels.btnBuscar}"
+							style="border:1px solid black" />
+					</hbox>
+					<separator height="20px"></separator>
+				</div>
+			</div>
+		</vbox>
+	</div>
+</window>
+</zk>

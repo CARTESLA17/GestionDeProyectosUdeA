@@ -1,0 +1,10 @@
+<?page title="" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window>
+		<style src="/recursos/css/estilos.css" />
+		<div>
+			<separator height="40px"></separator>
+			<image src="/recursos/img/escudo_udea.png" width="300px" height="100%" sclass="imagenFondo" />
+		</div>
+	</window>
+</zk>

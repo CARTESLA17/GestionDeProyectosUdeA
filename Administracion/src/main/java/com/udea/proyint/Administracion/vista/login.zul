@@ -1,0 +1,41 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?page title="Login" contentType="text/html;charset=UTF-8"?>
+<zk >
+	<div style="overflow:hidden"  >
+		<style src="/recursos/css/estilos.css"/>
+		<image src="/recursos/img/udea_1.jpg" width="1370px" height="665px" style="position: relative;" sclass="imagenFondo" />
+		<div apply="${beanLoginCtl}" style="filter:alpha(opacity=50); opacity:0.6;">
+			<div style="position: absolute; left: 40%; top: 5%;" sclass="bg">
+				<div align="center" sclass="datosAcceso">
+					<vbox align="center" pack="center">
+					
+						<label value="" height="30px"/>
+						<label value="" height="30px"/>	
+						
+						<image src="/recursos/img/escudo_udea.png" width="100px" height="160px" />
+						
+						<label value="${labels.tituloLogin}" sclass="fuente"/>
+						
+						<label value="" height="30px"/>
+						
+						<textbox id="txtUsuario"
+								placeholder="${labels.txtUsuario}" 
+								sclass="campos"/>
+						
+						<textbox id="txtPassword"
+								placeholder="${labels.txtPassword}"
+								type ="password" sclass="campos"/>
+								
+						<label value="" height="30px"/>	
+						<label value="" height="30px"/>
+						<label value="" height="30px"/>	
+						
+						<button id="btnIngresar" label="${labels.btnIngresar}"/>
+							
+						<label value="" height="30px"/>
+					</vbox>							
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>
