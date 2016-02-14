@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 11, 2016 11:04:40 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.udea.proyint.Dominio.dto.ProyectoDto" table="TB_PRY_PROYECTO" lazy="false">
+        <id name="idn" type="java.lang.Integer" access="field">
+            <column name="NB_IDN" />
+            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="prefer_sequence_per_entity">true</param>
+				<param name="optimizer">none</param>
+				<param name="increment_size">1</param>
+				<param name="sequence_name">TB_PRY_PROYECTO_SEQ</param>
+			</generator>
+        </id>
+		<property name="nombreDelProyecto" type="java.lang.String" access="field">
+            <column name="VR_NOMBRE_PROYECTO" />
+        </property>
+        <property name="objetivoGeneral" type="java.lang.String" access="field">
+            <column name="VR_OBJETIVO_GENERAL" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date" access="field">
+            <column name="DT_FECHA_CREACION" />
+        </property>
+        <property name="fechaInicial" type="java.util.Date" access="field">
+            <column name="DT_FECHA_INICIAL" />
+        </property>
+        <property name="fechaFinal" type="java.util.Date" access="field">
+            <column name="DT_FECHA_FINAL" />
+        </property>
+        <property name="adtUsuario" type="java.lang.String" access="field">
+            <column name="VR_ADT_USUARIO" />
+        </property>
+        <property name="adtFechaHora" type="java.util.Date" access="field">
+            <column name="DT_ADT_FECHA" />
+        </property>
+        <property name="calificacion" type="java.lang.String" access="field">
+            <column name="VR_CALIFICACION" />
+        </property>
+        <property name="justificacionCancelacion" type="java.lang.String" access="field">
+            <column name="VR_JUSTIFICACION_CANCELACION" />
+        </property>
+        <property name="justificacionSuspencion" type="java.lang.String" access="field">
+            <column name="VR_JUSTIFICACION_SUSPENCION" />
+        </property>
+        <property name="reconocimiento" type="java.lang.String" access="field">
+            <column name="VR_RECONOCIMIENTO" />
+        </property>
+        <many-to-one name="modalidad" class="com.udea.proyint.Dominio.dto.ModalidadesDelProyectoDto" fetch="join">
+            <column name="FK_PROYECTOS_MODALIDADES_IDN" />
+        </many-to-one>
+        <many-to-one name="tipoDeProyecto" class="com.udea.proyint.Dominio.dto.TiposDeProyectoDto" fetch="join">
+            <column name="FK_PROYECTOS_TIPOSPROYECTO_IDN" />
+        </many-to-one>
+        <many-to-one name="estadoDelProyecto" class="com.udea.proyint.Dominio.dto.EstadoDelProyectoDto" fetch="join">
+            <column name="FK_PROYECTOS_ESTADOS_IDN" />
+        </many-to-one>
+         <many-to-one name="responsable" class="com.udea.proyint.Dominio.dto.UsuarioDto" fetch="join">
+            <column name="FK_PROYECTOS_RESPONSABLE_IDN" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 11, 2016 11:52:24 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+   <class name="com.udea.proyint.Dominio.dto.ParticipanteXProyectoDto" table="TB_PRY_PARTICIPANTEXPROYECTO" lazy="false">
+        <composite-id name="participanteXProyectoDtoId" class="com.udea.proyint.Dominio.dto.ParticipanteXProyectoDtoId">
+            <key-many-to-one name="participante" class="com.udea.proyint.Dominio.dto.UsuarioDto">
+                <column name="FK_PARTICIPXPROY_USUARIO_IDN"> </column>
+            </key-many-to-one>
+            <key-many-to-one name="proyecto" class="com.udea.proyint.Dominio.dto.ProyectoDto">
+                <column name="FK_PARTICIPXPROY_PROY_IDN"> </column>
+            </key-many-to-one>
+        </composite-id>  
+    </class>
+</hibernate-mapping>
+
+
+ 

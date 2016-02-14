@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 11, 2016 12:06:32 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto" table="TB_PRY_OBJETIVOS_ESPECIFICOS">
+        <id name="idn" type="java.lang.Integer" access="field">
+            <column name="NB_IDN" />
+            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="prefer_sequence_per_entity">true</param>
+				<param name="optimizer">none</param>
+				<param name="increment_size">1</param>
+				<param name="sequence_name">TB_PRY_OBJETIVOS_ESPECIFICOS_</param>
+			</generator>
+        </id>
+        <property name="descripcion" type="java.lang.String" access="field">
+            <column name="VR_DESCRIPCION" />
+        </property>
+        <property name="adtUsuario" type="java.lang.String" access="field">
+            <column name="VR_ADT_USUARIO" />
+        </property>
+        <property name="adtFecha" type="java.util.Date" access="field">
+            <column name="DT_ADT_FECHA" />
+        </property>
+        <property name="estado" type="java.lang.String" access="field">
+            <column name="VR_ESTADO" />
+        </property>
+        <property name="porcentaje" type="java.lang.Integer" access="field">
+            <column name="NB_PORCENTAJE" />
+        </property>
+        <many-to-one name="proyecto" class="com.udea.proyint.Dominio.dto.ProyectoDto" fetch="join">
+            <column name="FK_OBJESP_PROYECTO_IDN" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
