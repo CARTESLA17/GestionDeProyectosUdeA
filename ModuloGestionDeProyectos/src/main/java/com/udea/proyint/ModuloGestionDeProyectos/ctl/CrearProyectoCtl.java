@@ -197,8 +197,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	 */
 	public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);   
-        System.out.println("cualquier cosa");
-		if( (Sessions.getCurrent().hasAttribute("usuario")) ){
+        if( (Sessions.getCurrent().hasAttribute("usuario")) ){
 			usuarioDto = (UsuarioDto)(Sessions.getCurrent().getAttribute("usuario"));
 		}else{
 			Executions.sendRedirect("index.zul");	
