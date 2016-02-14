@@ -1,0 +1,53 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?page title="Listar Proyectos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="${beanListarProyectosCtl}" contentStyle="border: 0px solid #FFFFFF">
+	<style src="/recursos/css/estilos.css" />
+		<div align="center" sclass="formulario">
+			<vbox align="center" pack="center" width="700px">
+				<separator height="2px"></separator>
+				<label id="lblListarProyectos" value="${labels.lblListarProyectos}" sclass="tituloCrearProyecto" />
+				<separator height="2px"></separator>				
+				<div sclass="divSeccionListarProyectos">
+					<div>
+						<hbox align="center">
+							<hbox align="left">
+								<label id="lblEstados" value="${labels.lblEstados}" style="color:black;font-weight:bold;font-size:15px" />
+							</hbox>
+							<hbox align="right">
+								<combobox id="cbxEstados" width="150px" placeholder="${labels.cbxEstados}" />
+							</hbox>
+							<hbox>
+								<button id="buscarProyectos" label="${labels.buscar}" style="border:1px solid black" />
+							</hbox>							
+						</hbox>						
+					</div>
+					<grid width="870px" id="gridListarProyectos"
+						sclass="sidebar">
+						<columns sizable="true">
+							<column width="170px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clNombreProyecto}"/>
+							<column width="90px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clFechaInicial}"/>
+							<column width="90px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clFechaFinal}"/>
+							<column width="110px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clTipoProyecto}"/>
+							<column width="85px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clRol}"/>
+							<column width="125px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clEstadoAvance}"/>
+							<column width="130px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clAcciones}"/>
+							<column hflex="1" align="center"
+								style="color:black;font-weight:bold" label="${labels.clAcciones}"/>
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
+				</div>
+				<separator height="1px"></separator>
+			</vbox>
+		</div>
+	</window>
+</zk>

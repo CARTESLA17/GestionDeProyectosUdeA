@@ -1,0 +1,259 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?page title="Crear Proyecto" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="${beanCrearProyectoCtl}" contentStyle="border: 0px solid #FFFFFF">
+	<style src="/recursos/css/estilos.css" />	
+		<div align="center" sclass="formulario">
+			<vbox align="center" pack="center" width="700px">
+				<separator height="2px"></separator>
+				<label id="lblCrearProyecto" value="${labels.lblCrearProyecto}" sclass="tituloCrearProyecto" />
+				<separator height="2px"></separator>
+				<div height="40px" sclass="divSeccionFormularioCrearProyecto">
+					<hbox>
+						<div align="left">
+							<label width="150px" id="lblResponsable" value="${labels.lblResponsable}" style="font-size:15px;color:black;font-weight:bold"
+								visible="true" />
+						</div>
+						<div align="right">
+							<label width="300px"
+								id="lblNombreResponsable" style="font-size:15px;color:black" visible="true" />
+						</div>
+					</hbox>
+				</div>
+				<separator height="1px"></separator>
+				<div height="40px" sclass="divSeccionFormularioCrearProyecto">
+					<hbox>
+						<div align="left">
+							<label width="250px" id="lblNombreProyecto" value="${labels.lblNombreProyecto}"
+								style="font-size:15px;color:black;font-weight:bold"
+								visible="true" />
+						</div>
+						<div align="right">
+							<textbox id="tbxNombreProyecto"
+								visible="true" style="border:1px solid black" width="300px"
+								rows="1" />
+						</div>
+					</hbox>
+				</div>
+				<separator height="1px"></separator>
+				<div height="40px" sclass="divSeccionFormularioCrearProyecto">
+					<hbox>
+						<div align="left">
+							<label width="150px" id="lblTipoProyecto" value="${labels.lblTipoProyecto}"
+								style="font-size:15px;color:black;font-weight:bold"
+								visible="true" />
+						</div>
+						<div align="right">
+							<combobox id="cbxTipoProyecto" width="300px" 
+								visible="true">
+							</combobox>
+						</div>
+					</hbox>
+				</div>
+				<separator height="1px"></separator>
+				<div height="40px" sclass="divSeccionFormularioCrearProyecto">
+					<hbox>
+						<div align="left">
+							<label id="lblModalidad" value="${labels.lblModalidad}"
+								style="font-size:15px;color:black;font-weight:bold"
+								visible="true" />
+						</div>
+						<div align="right">
+							<combobox id="cbxModalidad" width="300px"
+								visible="true">
+							</combobox>
+						</div>
+					</hbox>
+				</div>
+				<separator height="1px"></separator>
+				<div sclass="divSeccionFormularioCrearProyecto">
+					<div align="left">
+						<label id="lblAsesores" value="${labels.lblAsesores}"
+						style="color:black;font-weight:bold;font-size:15px" />
+					</div>
+					<grid width="615px" id="gridAsesores"
+						sclass="sidebar">				
+						<columns sizable="true">
+							<column width="144px" align="center" style="color:black;font-weight:bold" label="${labels.clTipoIdentificacion}"/>
+							<column width="114px" align="center" style="color:black;font-weight:bold" label="${labels.clIdentificacion}"/>
+							<column width="139px" align="center" style="color:black;font-weight:bold" label="${labels.clNombres}"/>
+							<column width="139px" align="center" style="color:black;font-weight:bold" label="${labels.clApellidos}"/>
+							<column hflex="1" align="center" />
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
+					<div>
+						<hbox align="center">
+							<hbox align="left">
+								<label id="lblBusquedaAsesores" value="${labels.lblBusquedaAsesores}" style="color:black;font-weight:bold;font-size:15px" />
+							</hbox>
+							<hbox align="right">
+								<button id="buscarAsesores" label="${labels.buscar}" style="border:1px solid black" />
+							</hbox>
+							<hbox>
+								<button id="limpiarAsesores" label="${labels.btnLimpiar}" style="border:1px solid black" />
+							</hbox>
+						</hbox>						
+					</div>
+					<grid width="615px" id="gridBusquedaAsesores"
+						sclass="sidebar">
+						<auxhead sclass="category-center">
+							<auxheader colspan="5" align="left">
+								<combobox id="cbxTipoIDAsesores" width="185px" placeholder="${labels.cbxTipoIdentificacion}" />
+								<textbox id="tbxIDAsesores" instant="true"  width="115px" placeholder="${labels.tbxIdentificacion}"/>
+								<textbox id="tbxNombresAsesores" instant="true" width="142px" placeholder="${labels.tbxNombres}"/>
+								<textbox id="tbxApellidosAsesores" instant="true" width="142px" placeholder="${labels.tbxApellidos}"/>									
+							</auxheader>
+						</auxhead>
+						<columns sizable="true">
+							<column width="144px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clTipoIdentificacion}"/>
+							<column width="114px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clIdentificacion}"/>
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clNombres}"/>
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clApellidos}"/>
+							<column hflex="1" align="center" />
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
+				</div>
+				<separator height="1px"></separator>
+				<div sclass="divSeccionFormularioCrearProyecto">
+					<div align="left">
+						<label id="lblParticipantes"
+							value="${labels.lblParticipantes}"
+							style="color:black;font-weight:bold;font-size:15px" />
+					</div>
+					<grid width="615px" id="gridParticipantes"
+						sclass="sidebar">				
+						<columns sizable="true">
+							<column width="144px" align="center" style="color:black;font-weight:bold" label="${labels.clTipoIdentificacion}"/>
+							<column width="114px" align="center" style="color:black;font-weight:bold" label="${labels.clIdentificacion}"/>
+							<column width="139px" align="center" style="color:black;font-weight:bold" label="${labels.clNombres}"/>
+							<column width="139px" align="center" style="color:black;font-weight:bold" label="${labels.clApellidos}"/>
+							<column hflex="1" align="center" />
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
+					<div>
+						<hbox align="center">
+							<hbox align="left">
+								<label id="lblBusquedaParticipantes"
+									value="${labels.lblBusquedaParticipantes}"
+									style="color:black;font-weight:bold;font-size:15px" />
+							</hbox>
+							<hbox align="right">
+								<button id="buscarParticipantes"
+											label="${labels.buscar}" style="border:1px solid black" />
+							</hbox>
+							<hbox>
+								<button id="limpiarParticipantes" label="${labels.btnLimpiar}" style="border:1px solid black" />
+							</hbox>
+						</hbox>						
+					</div>
+					<grid width="615px" id="gridBusquedaParticipantes"
+						sclass="sidebar">
+						<auxhead sclass="category-center">
+							<auxheader colspan="5" align="left">
+								<combobox id="cbxTipoIDParticipantes"
+									width="185px" placeholder="${labels.cbxTipoIdentificacion}"/>									
+								<textbox id="tbxIDParticipantes"
+									instant="true" placeholder="${labels.tbxIdentificacion}" width="115px" value=""/>
+								<textbox id="tbxNombresParticipantes"
+									instant="true" placeholder="${labels.tbxNombres}" width="142px" value=""/>
+								<textbox id="tbxApellidosParticipantes"
+									instant="true" placeholder="${labels.tbxApellidos}" width="142px" value=""/>									
+							</auxheader>
+						</auxhead>
+						<columns sizable="true">
+							<column width="144px" align="center"
+								style="color:black;font-weight:bold"
+								label="${labels.clTipoIdentificacion}" />
+							<column width="114px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clIdentificacion}" />
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clNombres}" />
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clApellidos}" />
+							<column hflex="1" align="center" />
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
+				</div>
+				<separator height="1px"></separator>
+				<div height="40px" sclass="divSeccionFormularioCrearProyecto">
+					<hbox>
+						<div align="left">
+							<label value="${labels.lblFechaInicial}"
+								id="lblFechaInicial"
+								style="font-size:15px;color:black;font-weight:bold"
+								visible="true" />
+						</div>
+						<div align="right">
+							<datebox id="dateFechaInicial"
+								format="dd-MM-yyyy" onCreate="self.value=new Date()" />
+						</div>
+						<space spacing="20px" />
+						<div align="left">
+							<label value="${labels.lblFechaFinal}"
+								id="lblFechaFinal"
+								style="font-size:15px;color:black;font-weight:bold"
+								visible="true" />
+						</div>
+						<div align="right">
+							<datebox id="dateFechaFinal"
+								format="dd-MM-yyyy" onCreate="self.value=new Date()" />
+						</div>
+					</hbox>
+				</div>
+				<separator height="1px"></separator>
+				<div height="60px" sclass="divSeccionFormularioCrearProyecto">
+					<hbox align="center">
+						<div align="left">
+							<label value="${labels.lblObjetivoGeneral}"
+								id="lblObjetivoGeneral"
+								style="font-size:15px;color:black;font-weight:bold"
+								visible="true" />
+						</div>
+						<div align="right">
+							<textbox id="tbxObjetivoGeneral"
+								visible="true" style="border:1px solid black" width="350px"
+								rows="3" />
+						</div>
+					</hbox>
+				</div>
+				<separator height="1px"></separator>
+				<div sclass="divSeccionFormularioCrearProyecto">
+					<div align="left">
+						<label id="lblObjetivosEspecificos"
+							value="${labels.lblObjetivosEspecificos}"
+							style="color:black;font-weight:bold;font-size:15px" />
+					</div>
+					<grid width="615px" id="gridObjetivosEspecificos"
+						sclass="sidebar">
+						<columns>
+							<column width="350px" align="center" />
+							<column width="100px" align="center" />
+							<column align="center" />
+							<column align="center" />
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
+				</div>
+				<separator height="1px"></separator>
+				<hbox>
+					<button id="btnGuardar" label="${labels.btnGuardar}"
+						style="border:1px solid black" />
+				</hbox>
+				<separator height="1px"></separator>
+			</vbox>
+		</div>
+	</window>	
+</zk>
