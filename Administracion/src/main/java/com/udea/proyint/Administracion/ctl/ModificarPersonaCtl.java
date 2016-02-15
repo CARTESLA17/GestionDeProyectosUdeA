@@ -30,6 +30,9 @@ public class ModificarPersonaCtl extends GenericForwardComposer {
 	private Textbox tbxIdentificacion;
 	private Div div;
 	private boolean crearVista = true;
+	
+	private Textbox tbxIdentificacionModificar;
+	private Textbox tbxNombres;
 	//private ArrayList<UsuarioDto> informacionUsuario;
 	
 	
@@ -75,23 +78,14 @@ public class ModificarPersonaCtl extends GenericForwardComposer {
 			System.out.println("tipo id: "+tipoId);
 			System.out.println("id: "+tbxIdentificacion.getText());
 			personaDto = personaNgc.buscarUsuarioModificar(Integer.parseInt(tipoId), Integer.parseInt(tbxIdentificacion.getText()));
-			System.out.println("Paso informacion Usuario");
-			//System.out.println("identificador: "+personaDto.getIdn());
-			//System.out.println("tipo Identificacion: "+tipoDocumentoDto.getIdn());
-			//System.out.println("numero id: "+usuarioDto.getIdentificacion());
-			//System.out.println("nombres: "+usuarioDto.getNombres());
-			//System.out.println("apellidos: "+usuarioDto.getApellidos());
-			//System.out.println("correo: "+usuarioDto.getEmail());
-			//System.out.println("usuario: "+usuarioDto.getUsuario());
-			//System.out.println("contraseña: "+ usuarioDto.getContrasena());
-			//System.out.println("usuario creador: "+usuarioDto.getAdtUsuario());
-			//System.out.println("fecha creacion: "+usuarioDto.getFechaHora());
-			//System.out.println("rol: "+rolSistemaDto.getIdn());	
-			//System.out.println("estado: "+ estadoDto.obtenerIdn());
+			//CargarPersonaModificarCtl.llenarCampos(personaDto);
+			System.out.println("llega a llenarCampos");
+			llenarCampos(personaDto);
+			System.out.println("paso llenarCampos");
 			
 			if (crearVista){
 				//Messagebox.show("Campos Correctos" , "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/crearPersona.zul") ;
+				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/cargarPersonaModificar.zul") ;
 				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
 				Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
 				div.appendChild(win);
@@ -102,6 +96,14 @@ public class ModificarPersonaCtl extends GenericForwardComposer {
 		}
 	}
 
+
+	private void llenarCampos(UsuarioDto personaDto2) {
+		//cbxIdentificiacion.setContext(personaDto.getTipoDocumento().getIdn());
+		//tbxIdentificacionModificar.setText(personaDto.getIdentificacion().toString());
+		//tbxNombres.setText(personaDto.getNombres());
+		System.out.println("en el metodo llenarCampos");
+		
+	}
 
 	private boolean validarCampos() {
 		if(cbxIdentificiacion.getText().equals("")){

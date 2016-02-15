@@ -1,7 +1,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>  
 <?page title="Modificar Persona" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<window  apply="${beanCrearPersonaCtl}"  contentStyle="border: 0px solid #FFFFFF">
+	<window apply="${beanModificarPersonaCtl}" contentStyle="border: 0px solid #FFFFFF"> 
 	<style src="/recursos/css/estilos.css" />
 		<div align="center" sclass="formulario">
 			<vbox align="center" pack="center" width="700px">
@@ -58,18 +58,6 @@
 							visible="true" />
 						<space spacing="78px"></space>	
 						<textbox id="tbxEmail"
-							visible="true" style="border:1px solid black" width="318px"
-							rows="1" />
-					</div>
-					
-					<separator height="15px"></separator>
-					<div align="left">
-						<space spacing="47px"></space>
-						<label width="250px" id="lblUsuario" value="${labels.lblUsuario}"
-							style="font-size:15px;color:black;font-weight:bold"
-							visible="true" />
-						<space spacing="61px"></space>
-						<textbox id="tbxUsuario"
 							visible="true" style="border:1px solid black" width="318px"
 							rows="1" />
 					</div>
