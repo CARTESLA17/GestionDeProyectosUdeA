@@ -111,6 +111,10 @@
  		<property name="tipoIdentificacionNgc" ref="beanTipoIdentificacionNgc"></property>
  		<property name="personaNgc" ref="beanPersonaNgc"></property>
  	</bean>  
+ 	
+ 	<bean id="beanFormularioModificarPersonaCtl" class="com.udea.proyint.Administracion.ctl.FormularioModificarPersonaCtl" scope="prototype"> 
+ 		
+ 	</bean> 
 
 	<!-- BEANS PARA LOS NEGOCIOS -->
 	<bean id="beanModalidadesDelProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ModalidadesDelProyectoNgc" scope="singleton">

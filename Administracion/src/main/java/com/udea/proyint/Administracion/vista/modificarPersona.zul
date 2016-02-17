@@ -11,7 +11,7 @@
 					
 			<div height="40px" sclass="divSeccionFormularioCrearPersona">
 				<separator height="20px"></separator>
-				<div align="left">
+				
 					<space spacing="50px"></space>
 					<label width="250px" id="lblIdentificacion" value="${labels.lblIdentificacion}"
 							style="font-size:15px;color:black;font-weight:bold"
@@ -24,13 +24,16 @@
 					<textbox id="tbxIdentificacion" placeholder="${labels.tbxIdentificacion}"
 					visible="true" style="border:1px solid black" width="115px"
 					rows="1" />
+					
+					<separator height="15px"></separator>
 					<hbox>
 						<button id="btnBuscar" label="${labels.btnBuscar}"
 							style="border:1px solid black" />
 					</hbox>
 					<separator height="20px"></separator>
+					
 				</div>
-			</div>
+			
 		</vbox>
 	</div>
 </window>

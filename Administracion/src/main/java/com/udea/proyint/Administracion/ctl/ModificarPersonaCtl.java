@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Combobox;
@@ -31,8 +32,10 @@ public class ModificarPersonaCtl extends GenericForwardComposer {
 	private Div div;
 	private boolean crearVista = true;
 	
-	private Textbox tbxIdentificacionModificar;
-	private Textbox tbxNombres;
+	
+	
+	//private Textbox tbxIdentificacionModificar;
+	//private Textbox tbxNombres;
 	//private ArrayList<UsuarioDto> informacionUsuario;
 	
 	
@@ -46,7 +49,7 @@ public class ModificarPersonaCtl extends GenericForwardComposer {
 		this.personaNgc = personaNgc;
 	}	
 	
-		public void doAfterCompose(Component comp) throws Exception {
+	public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp); 
         cargarComboBoxTipoId();
     }
@@ -78,32 +81,43 @@ public class ModificarPersonaCtl extends GenericForwardComposer {
 			System.out.println("tipo id: "+tipoId);
 			System.out.println("id: "+tbxIdentificacion.getText());
 			personaDto = personaNgc.buscarUsuarioModificar(Integer.parseInt(tipoId), Integer.parseInt(tbxIdentificacion.getText()));
+			if(personaDto!=null){				
+				Sessions.getCurrent().setAttribute("usuario",personaDto);				
+				//Executions.sendRedirect("llamadoAlMenu.zul");
+			}else{
+				System.out.println("fallo");
+			}
+			//FormularioModificarPersonaCtl.cargarTipoId(personaDto.getTipoDocumento().getIdn());
+			//FormularioModificarPersonaCtl.cargarId(personaDto.getIdentificacion().toString());
+			//FormularioModificarPersonaCtl.cargarNombres(personaDto.getNombres());
+			//FormularioModificarPersonaCtl.cargarApellidos(personaDto.getApellidos());
+			//FormularioModificarPersonaCtl.cargarEmail();
+			//FormularioModificarPersonaCtl.cargarClave();
+			//FormularioModificarPersonaCtl.cargarRol();
 			//CargarPersonaModificarCtl.llenarCampos(personaDto);
-			System.out.println("llega a llenarCampos");
-			llenarCampos(personaDto);
-			System.out.println("paso llenarCampos");
+			//System.out.println("llega a llenarCampos");
+	//		llenarCampos(personaDto);
+			//System.out.println("paso llenarCampos");
 			
 			if (crearVista){
+				System.out.println("entra a crear la vista");
 				//Messagebox.show("Campos Correctos" , "Informacion", Messagebox.OK, Messagebox.INFORMATION);
-				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/cargarPersonaModificar.zul") ;
+				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/formularioModificarPersona.zul") ;
 				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
 				Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
 				div.appendChild(win);
 				crearVista = false;
-			}	
+			}else{
+				//System.out.println("no crea vista pero va al controlador siguiente");
+				//java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/formularioModificarPersona.zul") ;
+				//java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+				//Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+			}
 		}else{
 			Messagebox.show("Campos Incorrectos. Validar Informacion" , "Error", Messagebox.OK, Messagebox.ERROR);
 		}
 	}
 
-
-	private void llenarCampos(UsuarioDto personaDto2) {
-		//cbxIdentificiacion.setContext(personaDto.getTipoDocumento().getIdn());
-		//tbxIdentificacionModificar.setText(personaDto.getIdentificacion().toString());
-		//tbxNombres.setText(personaDto.getNombres());
-		System.out.println("en el metodo llenarCampos");
-		
-	}
 
 	private boolean validarCampos() {
 		if(cbxIdentificiacion.getText().equals("")){
