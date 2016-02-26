@@ -251,6 +251,9 @@
 				<hbox>
 					<button id="btnGuardar" label="${labels.btnGuardar}"
 						style="border:1px solid black" />
+					<separator height="20px"></separator>
+					<button id="btnContinuar" label="${labels.btnContinuar}"
+						style="border:1px solid black" />
 				</hbox>
 				<separator height="1px"></separator>
 			</vbox>

@@ -1,5 +1,6 @@
 package com.udea.proyint.ModuloGestionDeProyectos.ctl;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,12 +23,14 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
 import com.udea.proyint.Administracion.ngc.PersonaNgcInt;
@@ -82,6 +85,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	private Grid gridBusquedaAsesores;
 	private Grid gridAsesores;
 	private Grid gridParticipantes;
+	
 	
 	/**
 	 * Cantidad de filas que tendran los textbox para los objetivos especificos.
@@ -170,6 +174,8 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	
 	private final int ESTADO_PROYECTO_ABIERTO=1;
 	private final String ESTADO_OBJ_ESP_ABIERTO="Abierto";
+	Div div = null;
+	
 		
 	public void setTiposDeProyectoNgc(TiposDeProyectoNgcInt tiposDeProyectoNgc) {
 		this.tiposDeProyectoNgc = tiposDeProyectoNgc;
@@ -929,6 +935,16 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	public void activarEventoQueueCargarVentanaMenu(){
 		eventoQueueActivarVentanaMenu = EventQueues.lookup("cargarVentanaMenu", EventQueues.DESKTOP,true);			
 		eventoQueueActivarVentanaMenu.publish(new Event("renderizar",null,null));
+	}
+	
+	public void onClick$btnContinuar(Event ev) throws IOException {	
+		/*java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/modificarPersona.zul") ;
+		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+		Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+		if(div.getFirstChild()!=null){
+			div.removeChild(div.getFirstChild());
+		}
+		div.appendChild(win);*/						
 	}
 	
 }
