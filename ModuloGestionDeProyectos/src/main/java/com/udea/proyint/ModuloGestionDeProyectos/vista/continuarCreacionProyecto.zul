@@ -1,0 +1,42 @@
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?page title="Continuar Crear Proyecto" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window contentStyle="border: 0px solid #FFFFFF">
+	<style src="/recursos/css/estilos.css" />
+	<div align="center" sclass="formulario">
+		<vbox align="center" pack="center" width="700px">
+			<separator height="2px"></separator>
+			<label id="lblAsignarTareas" value="${labels.lblAsignarTareas}" sclass="tituloCrearPersona" />
+			<separator height="2px"></separator>
+			
+			<div height="40px" sclass="divSeccionFormularioCrearProyecto">
+				<grid height="350px" model="@load(vm.mailData.mails)"
+            		emptyMessage="Nothing in Inbox.">
+            		<columns>
+                		<column id="lblObjEsp" label="${labels.lblObjEsp}" align="center" width="400px" />
+               			<column label="${labels.placeholderPorcentajeObjEsp}" width="100px" />
+                		<column id="lblTareas" label="${labels.lblTareas}" width="100px" />
+                	</columns>
+            		<template name="model">
+	                	<row>
+	                    	<label value="@load(each.subject)" />
+	                    	<label value="@load(each.date)" />
+	                    	<label value="@load(each.size)" />
+	                    	<button label="Delete" onClick="@command('removeMail', mail=each)" />
+	                	</row>
+            		</template>
+        		</grid>
+			</div>
+			<hbox>
+				<button id="btnCancelar" label="${labels.btnCancelar}"
+						style="border:1px solid black" />
+				<separator height="20px"></separator>
+				<button id="btnGuardar" label="${labels.btnGuardar}"
+						style="border:1px solid black" />
+			</hbox>
+		</vbox>	
+	</div>
+	
+	
+	</window>
+</zk>

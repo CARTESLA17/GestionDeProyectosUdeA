@@ -938,13 +938,13 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	}
 	
 	public void onClick$btnContinuar(Event ev) throws IOException {	
-		/*java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/Administracion/vista/modificarPersona.zul") ;
+		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
 		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
 		Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
 		if(div.getFirstChild()!=null){
 			div.removeChild(div.getFirstChild());
 		}
-		div.appendChild(win);*/						
+		div.appendChild(win);					
 	}
 	
 }
