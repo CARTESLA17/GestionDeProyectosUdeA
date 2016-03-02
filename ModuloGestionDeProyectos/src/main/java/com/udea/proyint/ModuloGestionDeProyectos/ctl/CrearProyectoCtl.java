@@ -911,8 +911,11 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 				objetivoEspecificoDto.setAdtFecha(new Date());
 				objetivoEspecificoDto.setAdtUsuario(usuario);
 				listadoObjetivosEsp.add(objetivoEspecificoDto);
+					//Executions.sendRedirect("llamadoAlMenu.zul");
+				
 			}
-		}		
+		}
+		Sessions.getCurrent().setAttribute("objetivosEspecificos",listadoObjetivosEsp);			
 	}
 	
 	public void cargarListaAsesoresOParticipantes(ArrayList<UsuarioDto> integrantes, Rows rows){
@@ -937,14 +940,27 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 		eventoQueueActivarVentanaMenu.publish(new Event("renderizar",null,null));
 	}
 	
-	public void onClick$btnContinuar(Event ev) throws IOException {	
-		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
-		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
-		Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
-		if(div.getFirstChild()!=null){
-			div.removeChild(div.getFirstChild());
-		}
-		div.appendChild(win);					
+	public void onClick$btnContinuar(Event ev) throws IOException {
+		if (verificarDatosFormularioCrearProyecto()) {
+			proyectoDto = proyectoNgc.almacenarProyecto(proyectoDto, listadoAsesores, listadoParticipantes, listadoObjetivosEspecificos);
+			/*if( (proyectoDto.getIdn()!=null) && (proyectoDto.getIdn()!=0) ){
+				EventListener<ClickEvent> clickListener = new EventListener<Messagebox.ClickEvent>() {
+		            public void onEvent(ClickEvent event) throws Exception {
+		            	activarEventoQueueCargarVentanaMenu();
+		            }
+		        };
+		        Messagebox.show(Labels.getLabel("mensajeProyectoCreado")+" "+proyectoDto.getIdn(),Labels.getLabel("tituloMensajeProyectoCreado"), new Messagebox.Button[]{
+		               Messagebox.Button.OK }, org.zkoss.zul.Messagebox.QUESTION, clickListener);							
+			}*/
+			cargarListaObjetivosEspecificos( listadoObjetivosEspecificos,gridObjetivosEspecificos.getRows(), usuarioDto.getUsuario());
+			java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
+			java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+			Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+			if(div.getFirstChild()!=null){
+				div.removeChild(div.getFirstChild());
+			}
+			div.appendChild(win);
+		}	
 	}
 	
 }

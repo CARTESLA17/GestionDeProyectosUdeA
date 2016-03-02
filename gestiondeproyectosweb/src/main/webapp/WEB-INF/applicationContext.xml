@@ -100,6 +100,10 @@
  		<property name="asesorXProyectoNgc" ref="beanAsesorXProyectoNgc"></property>
  		<property name="participanteXProyectoNgc" ref="beanParticipanteXProyectoNgc"></property>
  	</bean>
+ 	
+ 	<bean id="beanContinuarCreacionProyectoCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.ContinuarCreacionProyectoCtl" scope="prototype"> 
+ 		
+ 	</bean>
 	
 	<bean id="beanCrearPersonaCtl" class="com.udea.proyint.Administracion.ctl.CrearPersonaCtl" scope="prototype"> 
  		<property name="tipoIdentificacionNgc" ref="beanTipoIdentificacionNgc"></property>
