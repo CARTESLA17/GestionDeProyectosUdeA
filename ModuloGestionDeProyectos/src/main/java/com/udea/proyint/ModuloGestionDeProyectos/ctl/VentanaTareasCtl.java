@@ -19,6 +19,11 @@ import org.zkoss.zul.Window;
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
 
+/**
+ * 
+ * @author user
+ *
+ */
 public class VentanaTareasCtl extends GenericForwardComposer{
 	
 	private UsuarioDto usuarioDto=null;
