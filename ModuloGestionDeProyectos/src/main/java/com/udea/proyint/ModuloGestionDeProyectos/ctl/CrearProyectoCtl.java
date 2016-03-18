@@ -960,7 +960,8 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 				div.removeChild(div.getFirstChild());
 			}
 			div.appendChild(win);
-		}	
+		}
+		
 	}
 	
 }
