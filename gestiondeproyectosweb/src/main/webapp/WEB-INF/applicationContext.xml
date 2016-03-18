@@ -121,6 +121,11 @@
  	<bean id="beanFormularioModificarPersonaCtl" class="com.udea.proyint.Administracion.ctl.FormularioModificarPersonaCtl" scope="prototype"> 
  		
  	</bean> 
+ 	
+ 	<bean id="beanVentanaTareasCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.VentanaTareasCtl" scope="prototype"> 
+   
+  	</bean>
+ 	
 
 	<!-- BEANS PARA LOS NEGOCIOS -->
 	<bean id="beanModalidadesDelProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ModalidadesDelProyectoNgc" scope="singleton">

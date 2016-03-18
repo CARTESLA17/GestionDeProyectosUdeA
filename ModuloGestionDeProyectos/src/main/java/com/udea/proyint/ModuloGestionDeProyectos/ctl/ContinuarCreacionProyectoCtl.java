@@ -1,18 +1,26 @@
 package com.udea.proyint.ModuloGestionDeProyectos.ctl;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
+import org.zkoss.zul.Window;
 
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
 import com.udea.proyint.Dominio.dto.ProyectoDto;
@@ -26,11 +34,16 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 	private String labelDescripcion="ld_";
 	private String labelPorcentaje="lp_";
 	private String labelBoton="lb_";
+	private ObjetivoEspecificoDto objetivo = new ObjetivoEspecificoDto();
+	
+	private final String ESTADO_OBJ_ESP_ABIERTO="Abierto";
+	
+	Div div = null;
+	
 	
 	public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp); 
         if(Sessions.getCurrent().hasAttribute("objetivosEspecificos")){
-        	System.out.println("entro al if de session");
 			completarGrid();
 		}else{
 			
@@ -38,20 +51,20 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
     }
 
 	public void completarGrid() {
-		System.out.println("entro a completarGrid");
 		Rows rows = objEsp.getRows();	
 		if( (Sessions.getCurrent().getAttribute("objetivosEspecificos"))!=null ){
 			ArrayList<ObjetivoEspecificoDto> listaObejtivoEspecifico = (ArrayList<ObjetivoEspecificoDto>) Sessions.getCurrent().getAttribute("objetivosEspecificos");
 			for(ObjetivoEspecificoDto objEspecificos: listaObejtivoEspecifico){
-				rows.appendChild(construirFila(objEspecificos));
-				System.out.println(objEspecificos.toString());
+				rows.appendChild(construirFila(objEspecificos));	
 			}		       
 		}	
 	}
 
 	public Row construirFila(ObjetivoEspecificoDto objEspecificos) {
+		objetivo = objEspecificos;
 		final Row row = new Row();
 		row.setId(etiquetaRowContinuar+objEspecificos.getIdn());
+		System.out.println("El id de la fila es " + row.getId());
 		Label lblDescripcion= new Label();
 		lblDescripcion.setId(labelDescripcion+objEspecificos.getIdn());
 		lblDescripcion.setStyle("color: #000000!important; font-size: 13px");
@@ -62,14 +75,45 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 		lblPorcentaje.setStyle("color: #000000!important; font-size: 13px");
 		lblPorcentaje.setValue(objEspecificos.getPorcentaje().toString());
 		row.appendChild(lblPorcentaje);
-		Button botonActividades= new Button();
+		
+		final Button botonActividades= new Button();
+		
+		EventListener<Event> actionListenerActividades = new SerializableEventListener<Event>() {
+			public void onEvent(Event event) throws Exception {	
+				Sessions.getCurrent().setAttribute("ObjetivoEsp", row.getId());
+				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/ventanaTareas.zul") ;
+				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+				Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+				if(div.getFirstChild()!=null){
+					div.removeChild(div.getFirstChild());
+				}
+				div.appendChild(win);
+			}							
+		};
+		
+		
 		botonActividades.setId(labelBoton+objEspecificos.getIdn());
-		//botonActividades.addEventListener(Events.ON_CLICK, actionListenerAnexar);	
-		//botonActividades.setTooltip("mAnexar");
+		botonActividades.addEventListener(Events.ON_CLICK, actionListenerActividades);	
+		botonActividades.setTooltip("mAnexar");
 		botonActividades.setLabel(Labels.getLabel("btnActividades"));
 		botonActividades.setVisible(true);
 		row.appendChild(botonActividades);
 		return row;
+	}	
+	
+	
+	public void onClick$btnCancelar(Event ev) {
+		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/crearProyecto.zul") ;
+		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+		Window win = null;
+		try {
+			win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(div.getFirstChild()!=null){
+			div.removeChild(div.getFirstChild());
+		}
+		div.appendChild(win);
 	}
-
 }

@@ -46,16 +46,16 @@
         <property name="reconocimiento" type="java.lang.String" access="field">
             <column name="VR_RECONOCIMIENTO" />
         </property>
-        <many-to-one name="modalidad" class="com.udea.proyint.Dominio.dto.ModalidadesDelProyectoDto" fetch="join">
+        <many-to-one name="modalidad" class="com.udea.proyint.Dominio.dto.ModalidadesDelProyectoDto" fetch="join" lazy="false">
             <column name="FK_PROYECTOS_MODALIDADES_IDN" />
         </many-to-one>
-        <many-to-one name="tipoDeProyecto" class="com.udea.proyint.Dominio.dto.TiposDeProyectoDto" fetch="join">
+        <many-to-one name="tipoDeProyecto" class="com.udea.proyint.Dominio.dto.TiposDeProyectoDto" fetch="join" lazy="false">
             <column name="FK_PROYECTOS_TIPOSPROYECTO_IDN" />
         </many-to-one>
-        <many-to-one name="estadoDelProyecto" class="com.udea.proyint.Dominio.dto.EstadoDelProyectoDto" fetch="join">
+        <many-to-one name="estadoDelProyecto" class="com.udea.proyint.Dominio.dto.EstadoDelProyectoDto" fetch="join" lazy="false">
             <column name="FK_PROYECTOS_ESTADOS_IDN" />
         </many-to-one>
-         <many-to-one name="responsable" class="com.udea.proyint.Dominio.dto.UsuarioDto" fetch="join">
+         <many-to-one name="responsable" class="com.udea.proyint.Dominio.dto.UsuarioDto" fetch="join" lazy="false">
             <column name="FK_PROYECTOS_RESPONSABLE_IDN" />
         </many-to-one>
     </class>
