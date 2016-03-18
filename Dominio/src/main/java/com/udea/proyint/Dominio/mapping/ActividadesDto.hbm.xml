@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 23, 2015 9:49:45 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.udea.proyint.Dominio.dto.ActividadesDto" table="TB_PRY_ACTIVIDADES" lazy="false">
+        <id name="idn" type="java.lang.Integer" access="field">
+            <column name="NB_IDN" />
+            <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+				<param name="prefer_sequence_per_entity">true</param>
+				<param name="optimizer">none</param>
+				<param name="increment_size">1</param>
+				<param name="sequence_name">TB_PRY_ACTIVIDADES_SEQ</param>
+			</generator>           
+        </id>
+        <property name="nombreActividad" type="java.lang.String" access="field">
+            <column name="VR_NOMBREACTIVIDAD" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date" access="field">
+            <column name="DT_FECHACREACION" />
+        </property>
+        <property name="porcentajeActividad" type="java.lang.Integer" access="field">
+            <column name="NB_PORCENTAJEACTIVIDAD" />
+        </property>
+        <property name="adtUsuario" type="java.lang.String" access="field">
+            <column name="VR_ADTUSUARIO" />
+        </property>
+        <property name="adtFecha" type="java.util.Date" access="field">
+            <column name="DT_ADTFECHA" />
+        </property>
+        <many-to-one name="objEspecif" class="com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto" fetch="join">
+            <column name="FK_ACTIVIDADE_OBJESPECIF_IDN" />
+        </many-to-one>  
+        <many-to-one name="estActivid" class="com.udea.proyint.Dominio.dto.EstadoDelProyectoDto" fetch="join">
+            <column name="FK_ACTIVIADES_ESTACTIVID_IDN" />
+        </many-to-one>             
+    </class>
+</hibernate-mapping>

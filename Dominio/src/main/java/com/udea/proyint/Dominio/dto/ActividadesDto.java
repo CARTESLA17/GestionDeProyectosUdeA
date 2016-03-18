@@ -5,15 +5,10 @@ import java.util.Date;
 
 public class ActividadesDto implements Serializable {
 	private Integer idn;
-	private Integer porcentajeActividad;
 	private String nombreActividad;
-	private String adtUsuario;
-	private String calificacion;
-	private String justificacionCancelacion;
-	private String justificacionSuspencion;
 	private Date fechaCreacion;
-	private Date fechaInicial;
-	private Date fechaFinal;
+	private Integer porcentajeActividad;
+	private String adtUsuario;
 	private Date adtFecha;
 	private ObjetivoEspecificoDto objEspecif;
 	private EstadoDelProyectoDto estActivid;
@@ -53,52 +48,12 @@ public class ActividadesDto implements Serializable {
 		this.adtUsuario = adtUsuario;
 	}
 
-	public String getCalificacion() {
-		return calificacion;
-	}
-
-	public void setCalificacion(String calificacion) {
-		this.calificacion = calificacion;
-	}
-
-	public String getJustificacionCancelacion() {
-		return justificacionCancelacion;
-	}
-
-	public void setJustificacionCancelacion(String justificacionCancelacion) {
-		this.justificacionCancelacion = justificacionCancelacion;
-	}
-
-	public String getJustificacionSuspencion() {
-		return justificacionSuspencion;
-	}
-
-	public void setJustificacionSuspencion(String justificacionSuspencion) {
-		this.justificacionSuspencion = justificacionSuspencion;
-	}
-
 	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
-	}
-
-	public Date getFechaInicial() {
-		return fechaInicial;
-	}
-
-	public void setFechaInicial(Date fechaInicial) {
-		this.fechaInicial = fechaInicial;
-	}
-
-	public Date getFechaFinal() {
-		return fechaFinal;
-	}
-
-	public void setFechaFinal(Date fechaFinal) {
-		this.fechaFinal = fechaFinal;
 	}
 
 	public Date getAdtFecha() {
