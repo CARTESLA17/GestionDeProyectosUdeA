@@ -29,6 +29,7 @@ import com.udea.proyint.Dominio.dto.UsuarioDto;
 /**
  * 
  * @author user
+ * 
  *
  */
 public class VentanaTareasCtl extends GenericForwardComposer{
