@@ -26,6 +26,11 @@ import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
 import com.udea.proyint.Dominio.dto.ProyectoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
 
+/**
+ * 
+ * @author user
+ *
+ */
 public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 	
 	private Grid objEsp;
@@ -64,7 +69,6 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 		objetivo = objEspecificos;
 		final Row row = new Row();
 		row.setId(etiquetaRowContinuar+objEspecificos.getIdn());
-		System.out.println("El id de la fila es " + row.getId());
 		Label lblDescripcion= new Label();
 		lblDescripcion.setId(labelDescripcion+objEspecificos.getIdn());
 		lblDescripcion.setStyle("color: #000000!important; font-size: 13px");
@@ -76,11 +80,12 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 		lblPorcentaje.setValue(objEspecificos.getPorcentaje().toString());
 		row.appendChild(lblPorcentaje);
 		
+		final int id = objEspecificos.getIdn();
 		final Button botonActividades= new Button();
 		
 		EventListener<Event> actionListenerActividades = new SerializableEventListener<Event>() {
 			public void onEvent(Event event) throws Exception {	
-				Sessions.getCurrent().setAttribute("ObjetivoEsp", row.getId());
+				Sessions.getCurrent().setAttribute("Objetivo", id);
 				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/ventanaTareas.zul") ;
 				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
 				Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
