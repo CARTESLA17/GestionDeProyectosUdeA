@@ -19,8 +19,7 @@ public class AsesorXProyectoDao extends HibernateDaoSupport implements AsesorXPr
 	public AsesorXProyectoDao() {		
 	}
 
-	public ArrayList<AsesorXProyectoDto> buscarProyectosPorEstadoYRolAsesor(
-			UsuarioDto usuarioDto, Integer idnEstado) {
+	public ArrayList<AsesorXProyectoDto> buscarProyectosPorEstadoYRolAsesor(UsuarioDto usuarioDto, Integer idnEstado) {
 		ArrayList<AsesorXProyectoDto> lista=null;
 		Session session = null;
 		StringBuilder consulta=new StringBuilder();

@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
-import com.udea.proyint.Dominio.dto.ParticipanteXProyectoDto;
 
 public class ObjetivoEspecificoDao extends HibernateDaoSupport implements ObjetivoEspecificoDaoInt {
 
