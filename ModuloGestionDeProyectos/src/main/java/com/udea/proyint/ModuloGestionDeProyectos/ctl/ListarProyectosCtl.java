@@ -1,5 +1,6 @@
 package com.udea.proyint.ModuloGestionDeProyectos.ctl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.zkoss.util.resource.Labels;
@@ -14,10 +15,12 @@ import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
+import org.zkoss.zul.Window;
 
 import com.udea.proyint.Dominio.dto.AsesorXProyectoDto;
 import com.udea.proyint.Dominio.dto.EstadoDelProyectoDto;
@@ -38,9 +41,11 @@ public class ListarProyectosCtl extends GenericForwardComposer{
 	private ParticipanteXProyectoNgcInt participanteXProyectoNgc;
 	
 	private UsuarioDto usuarioDto=null;
+	private ProyectoDto proyectoDto;
 	
 	private Combobox cbxEstados;
 	private Grid gridListarProyectos;
+	private Div div;
 	
 	//Partes de los nombres de las filas de las grid.	
 	private String parteIdCIEstadosDelProyecto="ciep_";
@@ -298,11 +303,42 @@ public class ListarProyectosCtl extends GenericForwardComposer{
 		
 		EventListener<Event> actionListenerAnexar = new SerializableEventListener<Event>() {
 			public void onEvent(Event event) throws Exception {	
-				Row filaDelClick= ((Row) ((Button)event.getTarget()).getParent());
-				if( (filaDelClick != null) && (filaDelClick.hasAttribute("proyecto")) ){
+//				Row filaDelClick= ((Row) ((Button)event.getTarget()).getParent());
+//				if( (filaDelClick != null) && (filaDelClick.hasAttribute("proyecto")) ){
 					
+//				}
+				Row filaDelClick= ((Row) ((Button)event.getTarget()).getParent());
+				String getId = filaDelClick.getId();
+				int idProyecto = Integer.parseInt(getId.substring(3));
+				System.out.println("id delafila: "+filaDelClick.getId());
+				System.out.println("id del proyecto : "+idProyecto);
+				
+				proyectoDto = proyectoNgc.buscarProyectoModificar(idProyecto);
+				if(proyectoDto!=null){
+					System.out.println("sesion creada");
+					Sessions.getCurrent().setAttribute("proyecto",proyectoDto);				
+					//Executions.sendRedirect("llamadoAlMenu.zul");
+				}else{
+					System.out.println("fallo");
 				}
-			}							
+				
+				
+				
+				
+				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/formularioModificarProyecto.zul") ;
+				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+				Window win = null;
+				try {
+					win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if(div.getFirstChild()!=null){
+					div.removeChild(div.getFirstChild());
+				}
+				div.appendChild(win);
+			}	
+			
 		};
 		Button btnAnexarAsesores=new Button();
 		//btnAnexarAsesores.setId(parteIdBtnAnexarAsesores+usuario.getIdn());
@@ -323,4 +359,5 @@ public class ListarProyectosCtl extends GenericForwardComposer{
 			grid.appendChild(new Rows());
 		}
 	}
+	
 }

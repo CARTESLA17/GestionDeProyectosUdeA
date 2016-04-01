@@ -14,6 +14,8 @@ public interface ProyectoDaoInt {
 	public ArrayList<ProyectoDto> buscarProyectosPorEstadoYRolResponsable(
 			UsuarioDto usuarioDto, Integer idnEstado);
 
+	public ProyectoDto buscarProyectoModificar(int idProyecto);
+
 }
 
 

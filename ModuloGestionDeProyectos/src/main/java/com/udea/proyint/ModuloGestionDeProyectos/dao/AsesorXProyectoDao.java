@@ -1,6 +1,7 @@
 package com.udea.proyint.ModuloGestionDeProyectos.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -8,6 +9,7 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.udea.proyint.Dominio.dto.AsesorXProyectoDto;
+import com.udea.proyint.Dominio.dto.ProyectoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
 
 public class AsesorXProyectoDao extends HibernateDaoSupport implements AsesorXProyectoDaoInt{
@@ -43,6 +45,26 @@ public class AsesorXProyectoDao extends HibernateDaoSupport implements AsesorXPr
 			}
 		}			
 		return lista;			
+	}
+
+	public ArrayList<AsesorXProyectoDto> buscarAsesorXProyecto(int idProyecto) {
+		ArrayList<AsesorXProyectoDto> lista=null;
+		Session session = null;
+		try{			
+			session = this.getSession();
+			Query query=session.createQuery("select axp from AsesorXProyectoDto axp where axp.asesorXProyectoDtoId.proyecto.idn=? ");
+			query.setInteger(0,idProyecto);
+			//query.setInteger(2,estadoActivo);
+			lista=(ArrayList<AsesorXProyectoDto>) query.list();
+		}catch(HibernateException e){
+			e.printStackTrace();
+		}finally{
+			if(session!=null){
+				session.close();
+			}
+		}
+		return lista;
+
 	}
 
 }

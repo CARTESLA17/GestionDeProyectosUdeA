@@ -29,4 +29,8 @@ public class ProyectoNgc implements ProyectoNgcInt{
 		return proyectoDao.buscarProyectosPorEstadoYRolResponsable(usuarioDto,idnEstado);	
 	}
 
+	public ProyectoDto buscarProyectoModificar(int idProyecto) {
+		return proyectoDao.buscarProyectoModificar(idProyecto);
+	}
+
 }

@@ -20,6 +20,10 @@ public class AsesorXProyectoNgc implements AsesorXProyectoNgcInt{
 	public ArrayList<AsesorXProyectoDto> buscarProyectosPorEstadoYRolAsesor(
 			UsuarioDto usuarioDto, Integer idnEstado) {
 		return asesorXProyectoDao.buscarProyectosPorEstadoYRolAsesor(usuarioDto, idnEstado);
+	}
+
+	public ArrayList<AsesorXProyectoDto> buscarAsesorXProyecto(int idProyecto) {
+		return asesorXProyectoDao.buscarAsesorXProyecto(idProyecto);
 	}	
 
 }

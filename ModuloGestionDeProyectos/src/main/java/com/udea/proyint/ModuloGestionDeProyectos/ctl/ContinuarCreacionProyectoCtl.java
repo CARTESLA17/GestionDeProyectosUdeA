@@ -81,7 +81,7 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 		row.appendChild(lblPorcentaje);
 		
 		final int id = objEspecificos.getIdn();
-		final Button botonActividades= new Button();
+		final Button botonActividades = new Button();
 		
 		EventListener<Event> actionListenerActividades = new SerializableEventListener<Event>() {
 			public void onEvent(Event event) throws Exception {	

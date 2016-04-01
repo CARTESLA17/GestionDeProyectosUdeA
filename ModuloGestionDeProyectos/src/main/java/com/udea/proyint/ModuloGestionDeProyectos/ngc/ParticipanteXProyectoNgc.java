@@ -23,4 +23,8 @@ public class ParticipanteXProyectoNgc implements ParticipanteXProyectoNgcInt {
 		return participanteXProyectoDao.buscarProyectosPorEstadoYRolParticipante(usuarioDto, idnEstado);
 	}
 
+	public ArrayList<ParticipanteXProyectoDto> buscarParticipanteXProyecto(int idProyecto) {
+		return participanteXProyectoDao.buscarParticipanteXProyecto(idProyecto);
+	}
+
 }

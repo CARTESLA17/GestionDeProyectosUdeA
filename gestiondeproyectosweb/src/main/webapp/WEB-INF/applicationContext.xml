@@ -125,9 +125,16 @@
  	<bean id="beanVentanaTareasCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.VentanaTareasCtl" scope="prototype"> 
    
   	</bean>
+  	
+  	<bean id="beanFormularioModificarProyectoCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.FormularioModificarProyectoCtl" scope="prototype"> 
+ 		<property name="asesorXProyectoNgc" ref="beanAsesorXProyectoNgc"></property>
+ 		<property name="participanteXProyectoNgc" ref="beanParticipanteXProyectoNgc"></property>
+ 		<property name="objetivoEspecificoNgc" ref="beanObjetivoEspecificoNgc"></property>
+ 		<property name="tiposDeProyectoNgc" ref="beanTiposDeProyectoNgc"></property>
+ 		<property name="modalidadesDelProyectoNgc" ref="beanModalidadesDelProyectoNgc"></property>
+ 	</bean> 
  	
-
-	<!-- BEANS PARA LOS NEGOCIOS -->
+ 	<!-- BEANS PARA LOS NEGOCIOS -->
 	<bean id="beanModalidadesDelProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ModalidadesDelProyectoNgc" scope="singleton">
 		<property name="modalidadesDao" ref="beanModalidadesDelProyectoDao"></property>
 	</bean>	
@@ -158,6 +165,10 @@
 	
 	<bean id="beanParticipanteXProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ParticipanteXProyectoNgc" scope="singleton">
 		<property name="participanteXProyectoDao" ref="beanParticipanteXProyectoDao"></property>
+	</bean>
+	
+	<bean id="beanObjetivoEspecificoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ObjetivoEspecificoNgc" scope="singleton">
+		<property name="objetivoEspecificoDao" ref="beanObjetivoEspecificoDao"></property>
 	</bean>
 	
 	<bean id="beanTipoRolNgc" class="com.udea.proyint.Administracion.ngc.TipoRolNgc" scope="singleton">
@@ -198,6 +209,10 @@
 	</bean>	
 	
 	<bean id="beanTipoRolDao" class="com.udea.proyint.Administracion.dao.TipoRolDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	
+	<bean id="beanObjetivoEspecificoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.ObjetivoEspecificoDao" scope="singleton">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>	
 

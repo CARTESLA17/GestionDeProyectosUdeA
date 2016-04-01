@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.udea.proyint.Dominio.dto.AsesorXProyectoDto;
 import com.udea.proyint.Dominio.dto.ParticipanteXProyectoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
 
@@ -40,6 +41,25 @@ public class ParticipanteXProyectoDao extends HibernateDaoSupport implements Par
 			}
 		}			
 		return lista;	
+	}
+
+	public ArrayList<ParticipanteXProyectoDto> buscarParticipanteXProyecto(int idProyecto) {
+		ArrayList<ParticipanteXProyectoDto> lista=null;
+		Session session = null;
+		try{			
+			session = this.getSession();
+			Query query=session.createQuery("select pxp from ParticipanteXProyectoDto pxp where pxp.participanteXProyectoDtoId.proyecto.idn=? ");
+			query.setInteger(0,idProyecto);
+			//query.setInteger(2,estadoActivo);
+			lista=(ArrayList<ParticipanteXProyectoDto>) query.list();
+		}catch(HibernateException e){
+			e.printStackTrace();
+		}finally{
+			if(session!=null){
+				session.close();
+			}
+		}
+		return lista;
 	}
 
 }

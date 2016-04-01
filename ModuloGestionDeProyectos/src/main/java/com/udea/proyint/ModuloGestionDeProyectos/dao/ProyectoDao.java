@@ -107,6 +107,28 @@ public class ProyectoDao extends HibernateDaoSupport implements ProyectoDaoInt{
 		}			
 		return lista;		
 	}
+
+	public ProyectoDto buscarProyectoModificar(int idProyecto) {
+		ProyectoDto proyectoDto = null;
+		Session session = null;
+		try{			
+			session = this.getSession();
+			Query query=session.createQuery("select u from ProyectoDto u where u.idn=?");
+			query.setInteger(0,idProyecto);
+			//query.setInteger(2,estadoActivo);
+			List<ProyectoDto> lista=query.list();
+			if( (lista!=null) && (lista.size()==1)){
+				proyectoDto=lista.get(0);
+			}			
+		}catch(HibernateException e){
+			e.printStackTrace();
+		}finally{
+			if(session!=null){
+				session.close();
+			}
+		}
+		return proyectoDto;
+	}
 		
 
 }

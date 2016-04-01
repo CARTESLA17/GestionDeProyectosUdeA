@@ -40,8 +40,7 @@ public class ModificarPersonaCtl extends GenericForwardComposer {
 	
 	
 	//Constructor
-	public void setTipoIdentificacionNgc(
-		TipoIdentificacionNgcInt tipoIdentificacionNgc) {
+	public void setTipoIdentificacionNgc(TipoIdentificacionNgcInt tipoIdentificacionNgc) {
 		this.tipoIdentificacionNgc = tipoIdentificacionNgc;
 	}
 	

@@ -12,5 +12,7 @@ public interface ProyectoNgcInt {
 			ArrayList<UsuarioDto> listadoParticipantes, ArrayList<ObjetivoEspecificoDto> listadoObjetivosEspecificos);
 
 	public ArrayList<ProyectoDto> buscarProyectosPorEstadoYRolResponsable(UsuarioDto usuarioDto, Integer idnEstado);
+	
+	public ProyectoDto buscarProyectoModificar(int idProyecto);
 
 }

@@ -10,4 +10,6 @@ public interface AsesorXProyectoNgcInt {
 	public ArrayList<AsesorXProyectoDto> buscarProyectosPorEstadoYRolAsesor(
 			UsuarioDto usuarioDto, Integer idnEstado);
 
+	public ArrayList<AsesorXProyectoDto> buscarAsesorXProyecto(int idProyecto);
+
 }
