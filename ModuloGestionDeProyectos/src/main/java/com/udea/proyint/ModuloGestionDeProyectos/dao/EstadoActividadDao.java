@@ -1,5 +1,13 @@
 package com.udea.proyint.ModuloGestionDeProyectos.dao;
 
-public class EstadoActividadDao implements EstadoActividadDaoInt {
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+public class EstadoActividadDao extends HibernateDaoSupport implements EstadoActividadDaoInt {
+
+	public EstadoActividadDao() {
+		super();
+	}
+	
+	
 
 }
