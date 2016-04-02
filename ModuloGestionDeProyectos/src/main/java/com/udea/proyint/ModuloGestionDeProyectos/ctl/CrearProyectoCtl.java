@@ -85,7 +85,8 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	private Grid gridBusquedaAsesores;
 	private Grid gridAsesores;
 	private Grid gridParticipantes;
-	
+	private Textbox tbxObjetivoEspecifico;
+	private Textbox tbxPorcentaje;
 	
 	/**
 	 * Cantidad de filas que tendran los textbox para los objetivos especificos.
@@ -207,13 +208,43 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 			usuarioDto = (UsuarioDto)(Sessions.getCurrent().getAttribute("usuario"));
 		}else{
 			Executions.sendRedirect("index.zul");	
-		}         
-        cargarNombreResponsableDelProyecto();
-        cargarCbxTiposDeProyecto();
-        cargarCbxModalidades();
-        anexarNuevaFilaObjetivoEsp();
-        cargarTiposDeIDsEnAsesores();
-        cargarTiposDeIDsEnParticipantes();
+		}
+        if(Sessions.getCurrent().getAttribute("idProyecto")!= null){
+        	cargarNombreResponsableDelProyecto();
+        	cargarCbxTiposDeProyecto();
+	        cargarCbxModalidades();
+        	tbxNombreProyecto.setText((String)Sessions.getCurrent().getAttribute("nombreDelProyecto"));
+        	tbxObjetivoGeneral.setText((String)Sessions.getCurrent().getAttribute("objetivoGeneral"));
+        	//dateFechaInicial.setText(Sessions.getCurrent().getAttribute("fechaInicial").toString());
+        	//dateFechaFinal.setText(Sessions.getCurrent().getAttribute("fechaFinal").toString());
+        	if( (Sessions.getCurrent().getAttribute("listadoAsesores"))!=null ){
+        		ArrayList<UsuarioDto> asesores =(ArrayList<UsuarioDto> ) Sessions.getCurrent().getAttribute("listadoAsesores");
+        		for(UsuarioDto asesor: asesores){
+        			gridAsesores.getRows().appendChild(construirFilaIntegranteAsesor(asesor));
+        		}
+        	}
+        	if( (Sessions.getCurrent().getAttribute("listadoParticipantes"))!=null ){
+        		ArrayList<UsuarioDto> participantes =(ArrayList<UsuarioDto> ) Sessions.getCurrent().getAttribute("listadoParticipantes");
+        		for(UsuarioDto participante: participantes){
+        			gridParticipantes.getRows().appendChild(construirFilaIntegranteParticipante(participante));
+        		}
+        	}
+        	if( (Sessions.getCurrent().getAttribute("objetivosEspecificos"))!=null ){
+    			ArrayList<ObjetivoEspecificoDto> listaObejtivoEspecifico = (ArrayList<ObjetivoEspecificoDto>) Sessions.getCurrent().getAttribute("objetivosEspecificos");
+    			for(ObjetivoEspecificoDto objEspecificos: listaObejtivoEspecifico){
+    				anexarNuevaFilaObjetivoEsp();
+    			}	
+    			Sessions.getCurrent().setAttribute("idProyecto2", null);
+    		}	
+        	
+        }else{
+	        cargarNombreResponsableDelProyecto();
+	        cargarCbxTiposDeProyecto();
+	        cargarCbxModalidades();
+	        anexarNuevaFilaObjetivoEsp();
+	        cargarTiposDeIDsEnAsesores();
+	        cargarTiposDeIDsEnParticipantes();
+        }
     }
 	
 	/**
@@ -321,6 +352,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 		if(Sessions.getCurrent().hasAttribute("usuario")){
 			lblNombreResponsable.setValue(((UsuarioDto)Sessions.getCurrent().getAttribute("usuario")).getNombres()+" "
 			+((UsuarioDto)Sessions.getCurrent().getAttribute("usuario")).getApellidos());
+			Sessions.getCurrent().setAttribute("responsable",lblNombreResponsable.toString());	
 		}
 	}
 	
@@ -341,35 +373,60 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 		*/
 		row.setAttribute("objetivoEspCargado","activo");
 		row.setId(idContadorRows+"");
-		Textbox tbxObjetivoEspecifico= new Textbox();
-		/*
-		 * Los ids de los textboxs de los objetivos especificos de cada fila
-		 * tendran este formato: 
-		 * tbxObjEsp_idContadorRows
-		 * donde idContadorRows es la variable idContadorRows que tendra el 
-		 * valor que tenga en el momento.
-		 */
-		tbxObjetivoEspecifico.setId("tbxObjEsp_"+idContadorRows);
-		tbxObjetivoEspecifico.setStyle("border:1px solid black; color: #000000!important; font-size: 13px");
-		tbxObjetivoEspecifico.setRows(filasObjEspecifico);
-		tbxObjetivoEspecifico.setWidth(anchoObjEspecifico);
-		tbxObjetivoEspecifico.setPlaceholder(Labels.getLabel("placeholderObjEspecifico"));
-		tbxObjetivoEspecifico.setVisible(true);		
-		row.appendChild(tbxObjetivoEspecifico);
-		/*
-		 * Los ids de los textboxs del porcentaje de cada fila
-		 * tendran este formato: 
-		 * tbxPor_idContadorRows
-		 * donde idContadorRows es la variable idContadorRows que tendra el 
-		 * valor que tenga en el momento.
-		 */
-		Textbox tbxPorcentaje= new Textbox();
-		tbxPorcentaje.setId("tbxPor_"+idContadorRows);
-		tbxPorcentaje.setStyle("border:1px solid black; color: #000000!important; font-size: 13px");
-		tbxPorcentaje.setWidth(anchoPorcentajeObjEsp);
-		tbxPorcentaje.setPlaceholder(Labels.getLabel("placeholderPorcentajeObjEsp"));
-		tbxPorcentaje.setVisible(true);		
-		row.appendChild(tbxPorcentaje);	
+		
+		
+		if(Sessions.getCurrent().getAttribute("idProyecto2")!= null){
+			ArrayList<ObjetivoEspecificoDto> listaObejtivoEspecifico = (ArrayList<ObjetivoEspecificoDto>) Sessions.getCurrent().getAttribute("objetivosEspecificos");
+			
+			tbxObjetivoEspecifico = new Textbox();
+			tbxObjetivoEspecifico.setId("tbxObjEsp_"+idContadorRows);
+			tbxObjetivoEspecifico.setStyle("border:1px solid black; color: #000000!important; font-size: 13px");
+			tbxObjetivoEspecifico.setRows(filasObjEspecifico);
+			tbxObjetivoEspecifico.setWidth(anchoObjEspecifico);
+			tbxObjetivoEspecifico.setText((String)listaObejtivoEspecifico.get(idContadorRows -1).getDescripcion());
+			tbxObjetivoEspecifico.setVisible(true);		
+			row.appendChild(tbxObjetivoEspecifico);
+			
+			tbxPorcentaje = new Textbox();
+			tbxPorcentaje.setId("tbxPor_"+idContadorRows);
+			tbxPorcentaje.setStyle("border:1px solid black; color: #000000!important; font-size: 13px");
+			tbxPorcentaje.setWidth(anchoPorcentajeObjEsp);
+			tbxPorcentaje.setText(listaObejtivoEspecifico.get(idContadorRows - 1 ).getPorcentaje().toString());
+			tbxPorcentaje.setVisible(true);		
+			row.appendChild(tbxPorcentaje);	
+		}else{
+			/*
+			 * Los ids de los textboxs de los objetivos especificos de cada fila
+			 * tendran este formato: 
+			 * tbxObjEsp_idContadorRows
+			 * donde idContadorRows es la variable idContadorRows que tendra el 
+			 * valor que tenga en el momento.
+			 */
+			tbxObjetivoEspecifico = new Textbox();
+			tbxObjetivoEspecifico.setId("tbxObjEsp_"+idContadorRows);
+			tbxObjetivoEspecifico.setStyle("border:1px solid black; color: #000000!important; font-size: 13px");
+			tbxObjetivoEspecifico.setRows(filasObjEspecifico);
+			tbxObjetivoEspecifico.setWidth(anchoObjEspecifico);
+			tbxObjetivoEspecifico.setPlaceholder(Labels.getLabel("placeholderObjEspecifico"));
+			tbxObjetivoEspecifico.setVisible(true);		
+			row.appendChild(tbxObjetivoEspecifico);
+			/*
+			 * Los ids de los textboxs del porcentaje de cada fila
+			 * tendran este formato: 
+			 * tbxPor_idContadorRows
+			 * donde idContadorRows es la variable idContadorRows que tendra el 
+			 * valor que tenga en el momento.
+			 */
+			tbxPorcentaje = new Textbox();
+			tbxPorcentaje.setId("tbxPor_"+idContadorRows);
+			tbxPorcentaje.setStyle("border:1px solid black; color: #000000!important; font-size: 13px");
+			tbxPorcentaje.setWidth(anchoPorcentajeObjEsp);
+			tbxPorcentaje.setPlaceholder(Labels.getLabel("placeholderPorcentajeObjEsp"));
+			tbxPorcentaje.setVisible(true);		
+			row.appendChild(tbxPorcentaje);	
+		}
+		
+		
 		
 		EventListener<Event> actionListenerAnexar = new SerializableEventListener<Event>() {
 			public void onEvent(Event event) throws Exception {	
@@ -812,6 +869,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 			String nombreDelProyecto= tbxNombreProyecto.getText().trim();
 			if( ( !(nombreDelProyecto.isEmpty()) ) ){
 				proyectoDto.setNombreDelProyecto(nombreDelProyecto);
+				Sessions.getCurrent().setAttribute("nombreDelProyecto", nombreDelProyecto);
 			}else{
 				Messagebox.show(Labels.getLabel("mensajeFaltaNombreDelProyecto"), Labels.getLabel("mensajeAlertaCrearProyecto"), Messagebox.OK, Messagebox.INFORMATION);
 				return false;			
@@ -824,7 +882,8 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 			Integer idnTipoProyecto = Integer.parseInt(cbxTipoProyecto.getSelectedItem().getId().substring(5));
 			TiposDeProyectoDto tipoDeProyecto = new TiposDeProyectoDto();
 			tipoDeProyecto.setIdn(idnTipoProyecto);
-			proyectoDto.setTipoDeProyecto(tipoDeProyecto);			
+			proyectoDto.setTipoDeProyecto(tipoDeProyecto);		
+			Sessions.getCurrent().setAttribute("tipoDeProyecto", tipoDeProyecto.getNombre());
 		}else{	
 			Messagebox.show(Labels.getLabel("mensajeFaltaTipoDeProyecto"), Labels.getLabel("mensajeAlertaCrearProyecto"), Messagebox.OK, Messagebox.INFORMATION);
 			return false;
@@ -834,6 +893,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 			ModalidadesDelProyectoDto modalidad = new ModalidadesDelProyectoDto();
 			modalidad.setIdn(idnModalidad);
 			proyectoDto.setModalidad(modalidad);
+			Sessions.getCurrent().setAttribute("modalidad", modalidad.getNombre());
 			
 		}else{	
 			Messagebox.show(Labels.getLabel("mensajeFaltaTipoDeModalidad"), Labels.getLabel("mensajeAlertaCrearProyecto"), Messagebox.OK, Messagebox.INFORMATION);
@@ -842,6 +902,8 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 		if( (gridAsesores.getRows().getVisibleItemCount() > 0) && (gridParticipantes.getRows().getVisibleItemCount() > 0)){
 			cargarListaAsesoresOParticipantes( listadoAsesores, gridAsesores.getRows());
 			cargarListaAsesoresOParticipantes( listadoParticipantes, gridParticipantes.getRows());
+			Sessions.getCurrent().setAttribute("listadoAsesores", listadoAsesores);
+			Sessions.getCurrent().setAttribute("listadoParticipantes", listadoParticipantes);
 		}else{
 			Messagebox.show(Labels.getLabel("mensajeFaltanAsesoresY_OParticipantes"), Labels.getLabel("mensajeAlertaCrearProyecto"), Messagebox.OK, Messagebox.INFORMATION);
 			return false;		
@@ -862,7 +924,9 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 			}
 			if( fechaFinal.after(fechaInicial) ){
 				proyectoDto.setFechaInicial(fechaInicial);
-				proyectoDto.setFechaFinal(fechaFinal);						
+				proyectoDto.setFechaFinal(fechaFinal);		
+				Sessions.getCurrent().setAttribute("fechaInicial", fechaInicial);
+				Sessions.getCurrent().setAttribute("fechaFinal", fechaFinal);
 			}else{	
 				Messagebox.show(Labels.getLabel("mensajeErrorEnFechas"), Labels.getLabel("mensajeAlertaCrearProyecto"), Messagebox.OK, Messagebox.INFORMATION);
 				return false;
@@ -875,6 +939,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 			String objetivoGeneral= tbxObjetivoGeneral.getText().trim();
 			if( ( !(objetivoGeneral.isEmpty()) ) ){
 				proyectoDto.setObjetivoGeneral(objetivoGeneral);
+				Sessions.getCurrent().setAttribute("objetivoGeneral", objetivoGeneral);
 			}else{
 				Messagebox.show(Labels.getLabel("mensajeFaltaObjetivoGeneral"), Labels.getLabel("mensajeAlertaCrearProyecto"), Messagebox.OK, Messagebox.INFORMATION);
 				return false;			
@@ -942,7 +1007,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	
 	public void onClick$btnContinuar(Event ev) throws IOException {
 		if (verificarDatosFormularioCrearProyecto()) {
-			proyectoDto = proyectoNgc.almacenarProyecto(proyectoDto, listadoAsesores, listadoParticipantes, listadoObjetivosEspecificos);
+			
 			/*if( (proyectoDto.getIdn()!=null) && (proyectoDto.getIdn()!=0) ){
 				EventListener<ClickEvent> clickListener = new EventListener<Messagebox.ClickEvent>() {
 		            public void onEvent(ClickEvent event) throws Exception {
@@ -952,14 +1017,36 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 		        Messagebox.show(Labels.getLabel("mensajeProyectoCreado")+" "+proyectoDto.getIdn(),Labels.getLabel("tituloMensajeProyectoCreado"), new Messagebox.Button[]{
 		               Messagebox.Button.OK }, org.zkoss.zul.Messagebox.QUESTION, clickListener);							
 			}*/
-			cargarListaObjetivosEspecificos( listadoObjetivosEspecificos,gridObjetivosEspecificos.getRows(), usuarioDto.getUsuario());
-			java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
-			java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
-			Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
-			if(div.getFirstChild()!=null){
-				div.removeChild(div.getFirstChild());
+			if(Sessions.getCurrent().getAttribute("idProyecto")!= null){
+				
+				if(Sessions.getCurrent().getAttribute("idProyecto")!= proyectoDto.getIdn()){
+					proyectoDto = proyectoNgc.almacenarProyecto(proyectoDto, listadoAsesores, listadoParticipantes, listadoObjetivosEspecificos);
+					cargarListaObjetivosEspecificos( listadoObjetivosEspecificos,gridObjetivosEspecificos.getRows(), usuarioDto.getUsuario());
+					Sessions.getCurrent().setAttribute("idProyecto", proyectoDto.getIdn());
+					Sessions.getCurrent().setAttribute("idProyecto2", proyectoDto.getIdn());
+					java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
+					java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+					Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+					if(div.getFirstChild()!=null){
+						div.removeChild(div.getFirstChild());
+					}
+					div.appendChild(win);
+				}else{
+					//Almacenar el proyecto modificado no uno nuevo
+				}
+			}else{
+				proyectoDto = proyectoNgc.almacenarProyecto(proyectoDto, listadoAsesores, listadoParticipantes, listadoObjetivosEspecificos);
+				cargarListaObjetivosEspecificos( listadoObjetivosEspecificos,gridObjetivosEspecificos.getRows(), usuarioDto.getUsuario());
+				Sessions.getCurrent().setAttribute("idProyecto", proyectoDto.getIdn());
+				Sessions.getCurrent().setAttribute("idProyecto2", proyectoDto.getIdn());
+				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
+				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+				Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+				if(div.getFirstChild()!=null){
+					div.removeChild(div.getFirstChild());
+				}
+				div.appendChild(win);
 			}
-			div.appendChild(win);
 		}
 		
 	}

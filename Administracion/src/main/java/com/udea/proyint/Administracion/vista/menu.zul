@@ -26,6 +26,7 @@
 		            <menupopup>
 		                <menuitem label="Crear Proyecto" id="crearProyecto"/>
 		                <menuitem label="Listar Proyectos" id="listarProyectos"/>
+		                <menuitem label="Modificar Proyecto" id="modificarProyecto"/>
 		                <menuseparator></menuseparator>
 		            </menupopup>
 		        </menu>

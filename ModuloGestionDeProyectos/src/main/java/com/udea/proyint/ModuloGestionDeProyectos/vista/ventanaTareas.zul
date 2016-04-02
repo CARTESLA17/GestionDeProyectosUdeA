@@ -9,16 +9,24 @@
 			<label id="lblVentanaTareas" sclass="tituloCrearPersona" />
 			<separator height="2px"></separator>
 			
-			<div height="40px" sclass="divSeccionFormularioCrearProyecto">
-				<grid id="objEsp" height="350px" >
-            		<columns>
-                		<column id="lblDescripcionTarea" label="${labels.lblDescripcionTarea}" width="200px" />
-               			<column label="${labels.lblPorcentajeTarea}" width="100px" />
-                	</columns>
-            		<rows>
-	                </rows>
-            	</grid>
-			</div>
+			<div sclass="divSeccionFormularioCrearProyecto">
+					<div align="left">
+						<label id="lblTareas"
+							value="${labels.lblTareas}"
+							style="color:black;font-weight:bold;font-size:15px" />
+					</div>
+					<grid width="615px" id="gridTareas"
+						sclass="sidebar">
+						<columns>
+							<column width="350px" align="center" />
+							<column width="100px" align="center" />
+							<column align="center" />
+							<column align="center" />
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
+				</div>
 			<hbox>
 				<button id="btnCancelar" label="${labels.btnCancelar}"
 						style="border:1px solid black" />

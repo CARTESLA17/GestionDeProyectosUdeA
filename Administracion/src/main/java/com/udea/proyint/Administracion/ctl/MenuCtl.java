@@ -119,5 +119,15 @@ public class MenuCtl extends GenericForwardComposer{
 		}
 		div.appendChild(win);
 	}
+	
+	public void onClick$modificarProyecto(Event ev) throws IOException{
+		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/formularioModificarProyecto.zul") ;
+		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+		Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+		if(div.getFirstChild()!=null){
+			div.removeChild(div.getFirstChild());
+		}
+		div.appendChild(win);
+	}
 
 }
