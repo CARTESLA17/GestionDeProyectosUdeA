@@ -2,6 +2,8 @@ package com.udea.proyint.ModuloGestionDeProyectos.ctl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
@@ -23,7 +25,10 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 import org.zkoss.zul.Messagebox.ClickEvent;
 
+import com.udea.proyint.Dominio.dto.ActividadesDto;
+import com.udea.proyint.Dominio.dto.EstadoDelProyectoDto;
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
+import com.udea.proyint.Dominio.dto.ProyectoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
 
 /**
@@ -40,6 +45,9 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 	private Grid gridTareas;
 	private String parteIdTbxObjEsp="tbxObjEsp_";
 	private String parteIdTbxPorcentaje="tbxPor_";
+	
+	private ArrayList<ActividadesDto> listaActividades= new ArrayList<ActividadesDto>();
+	private ObjetivoEspecificoDto objetivoEspecificoDto = new ObjetivoEspecificoDto();
 	
 	/**
 	 * Cantidad de filas que tendran los textbox para los objetivos especificos.
@@ -84,7 +92,7 @@ public class VentanaTareasCtl extends GenericForwardComposer{
         if( (Sessions.getCurrent().hasAttribute("usuario")) ){
 			usuarioDto = (UsuarioDto)(Sessions.getCurrent().getAttribute("usuario"));
 			nombreObjetivo();
-			anexarNuevaFilaObjetivoEsp();
+			anexarNuevaFilaActividad();
 		}else{
 			Executions.sendRedirect("index.zul");	
 		}  			
@@ -97,20 +105,21 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 				int id = (Integer) Sessions.getCurrent().getAttribute("Objetivo");
 				if(id==objEspecificos.getIdn()){
 					lblVentanaTareas.setValue(Labels.getLabel("mensajeTarea") + " " +  objEspecificos.getDescripcion());
+					objetivoEspecificoDto = objEspecificos;	
 				}
 			}		       
 		}	
 	}
 	
-	public boolean revisarDatosTareas(String objetivoEsp, String porcentaje){
-		if( (!(objetivoEsp.trim().isEmpty() ) ) && (porcentaje.trim().matches("[1-9]{1}[0-9]*")) ){
+	public boolean revisarDatosTareas(String actividad, String porcentaje){
+		if( (!(actividad.trim().isEmpty() ) ) && (porcentaje.trim().matches("[1-9]{1}[0-9]*")) ){
 			return true;			
 		}
 		return false;
 	}
 	
 	
-	public void anexarNuevaFilaObjetivoEsp(){
+	public void anexarNuevaFilaActividad(){
 		 Rows rows = gridTareas.getRows(); 	
 	     rows.appendChild(construirFilaTarea());  
 	}
@@ -172,11 +181,11 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 						if( revisarDatosTareas(descripcion, porcentaje) ){
 							int porcentajeInt= Integer.parseInt(porcentaje);
 							if( (porcentajeTotalTareas+porcentajeInt)<=100 ){						
-								anexarNuevaFilaObjetivoEsp();
-								//ObjetivoEspecificoDto objetivoEspecificoDto = new ObjetivoEspecificoDto();
-								//objetivoEspecificoDto.setDescripcion(descripcion);
-								//objetivoEspecificoDto.setPorcentaje(porcentajeInt);
-								//row.setAttribute("objetivoEspecificoDto", objetivoEspecificoDto);
+								anexarNuevaFilaActividad();
+								ActividadesDto actividadesDto = new ActividadesDto();
+								actividadesDto.setNombreActividad(descripcion);
+								actividadesDto.setPorcentajeActividad(porcentajeInt);
+								row.setAttribute("actividadesDto", actividadesDto);
 								row.setAttribute("tareaCargada","desactivado");
 								tbDescripcionTarea.setDisabled(true);
 								tbPorcentajeTarea.setDisabled(true);
@@ -189,7 +198,7 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 						}
 					}else if(tareaCargada.equals("desactivadoUltimaFila")){
 						filaDelClick.setAttribute("tareaCargada","desactivado");
-						anexarNuevaFilaObjetivoEsp();
+						anexarNuevaFilaActividad();
 					}
 				}
 			}							
@@ -263,6 +272,24 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 		idContadorRows++;
 		rowsEnGridTareas++;
 		return row;
+	}
+	
+	public void cargarListaActividades( ArrayList<ActividadesDto> listaActividades, Rows rows, String usuario){
+		ActividadesDto actividadesDto=null;
+		ProyectoDto proyectoDto = objetivoEspecificoDto.getProyecto();
+		listaActividades.clear();
+		List<Row> listaRows=rows.getChildren();		
+		for(Row row: listaRows){
+			if( (row.hasAttribute("tareaCargada")) && !( ((String)(row.getAttribute("tareaCargada"))).equals("activo") ) 
+				&& (row.hasAttribute("actividadesDto")) ){
+				actividadesDto = (ActividadesDto) (row.getAttribute("actividadesDto")); 
+				actividadesDto.setObjEspecif(objetivoEspecificoDto);
+				actividadesDto.setEstActivid((EstadoDelProyectoDto)proyectoDto.getEstadoDelProyecto());
+				actividadesDto.setAdtFecha(new Date());
+				actividadesDto.setAdtUsuario(usuario);
+				listaActividades.add(actividadesDto);
+			}
+		}	
 	}
 	
 	public void onClick$btnCancelar(Event ev) {

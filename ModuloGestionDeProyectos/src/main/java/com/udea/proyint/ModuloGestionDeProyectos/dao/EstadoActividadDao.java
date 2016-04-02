@@ -4,10 +4,4 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class EstadoActividadDao extends HibernateDaoSupport implements EstadoActividadDaoInt {
 
-	public EstadoActividadDao() {
-		super();
-	}
-	
-	
-
 }
