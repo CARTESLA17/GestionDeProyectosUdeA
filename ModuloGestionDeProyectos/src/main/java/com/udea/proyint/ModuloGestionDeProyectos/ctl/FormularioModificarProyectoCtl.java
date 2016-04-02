@@ -32,6 +32,11 @@ import com.udea.proyint.Dominio.dto.AsesorXProyectoDto;
 import com.udea.proyint.Dominio.dto.EstadoDelProyectoDto;
 import com.udea.proyint.Dominio.dto.ProyectoDto;
 
+/**
+ * 
+ * @author user
+ *
+ */
 public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	
 	private AsesorXProyectoNgcInt asesorXProyectoNgc;
