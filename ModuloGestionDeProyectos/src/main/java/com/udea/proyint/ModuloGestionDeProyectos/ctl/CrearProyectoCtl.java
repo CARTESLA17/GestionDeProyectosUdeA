@@ -909,7 +909,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 			return false;		
 		}
 		if( (dateFechaInicial != null) && (dateFechaFinal != null) ){
-			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-mm-yyyy"); 
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy"); 
 			Date fechaInicial = null;
 			Date fechaFinal = null;
 			try {
