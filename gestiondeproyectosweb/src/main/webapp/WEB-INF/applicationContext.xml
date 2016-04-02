@@ -215,5 +215,12 @@
 	<bean id="beanObjetivoEspecificoDao" class="com.udea.proyint.ModuloGestionDeProyectos.dao.ObjetivoEspecificoDao" scope="singleton">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>	
-
+		
+	<bean id="beanEstadoActividad" class="com.udea.proyint.ModuloGestionDeProyectos.dao.EstadoActividadDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+		
+	<bean id="beanActividades" class="com.udea.proyint.ModuloGestionDeProyectos.dao.ActividadesDao" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 </beans>
