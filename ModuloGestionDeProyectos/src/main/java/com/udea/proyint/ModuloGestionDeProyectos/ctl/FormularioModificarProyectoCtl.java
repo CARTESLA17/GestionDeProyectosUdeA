@@ -1,21 +1,29 @@
 package com.udea.proyint.ModuloGestionDeProyectos.ctl;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Datebox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Row;
 import org.zkoss.zul.Rows;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import com.udea.proyint.Dominio.dto.ModalidadesDelProyectoDto;
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
@@ -57,6 +65,8 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	private Datebox dateFechaFinal;
 	private Textbox tbxObjetivoGeneral;
 	private Grid gridObjetivosEspecificos;
+	private Button btnAgregarAsesores;
+	Div div = null;
 	
 	private String etiquetaRow = "er_";
 	private String etiquetaRowA = "era_";
@@ -151,7 +161,6 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	}
 	
 	public void llenarCampos() {
-		System.out.println("entra a llenar campos");
 		lblNombreResponsable.setValue(((ProyectoDto)Sessions.getCurrent().getAttribute("proyecto")).getResponsable().getNombres()
 				+" "+((ProyectoDto)Sessions.getCurrent().getAttribute("proyecto")).getResponsable().getApellidos());
 		tbxNombreProyecto.setText(((ProyectoDto)Sessions.getCurrent().getAttribute("proyecto")).getNombreDelProyecto());
@@ -171,7 +180,6 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	public void gridObjetivosEspecificos(int idProyecto) {
 		Rows rows = gridObjetivosEspecificos.getRows();
 		ArrayList<ObjetivoEspecificoDto> listaObjEsp = objetivoEspecificoNgc.buscarObjetivoEspecificoXProyecto(idProyecto);
-		System.out.println("trajo la info");
 		for(ObjetivoEspecificoDto listaOE: listaObjEsp){
 			rows.appendChild(construirFilaObejtivoEsp(listaOE));
 			System.out.println("Objetivo: "+listaOE.getDescripcion());
@@ -209,7 +217,6 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	public void gridParticipantes(int idProyecto) {
 		Rows rows = gridParticipantes.getRows();
 		ArrayList<ParticipanteXProyectoDto> participantes = participanteXProyectoNgc.buscarParticipanteXProyecto(idProyecto);
-		System.out.println("trajo la info");
 		for(ParticipanteXProyectoDto listaPxP:participantes){
 			rows.appendChild(construirFilaParticipantes(listaPxP));
 			System.out.println("Participantes: "+listaPxP.getParticipanteXProyectoDtoId().getParticipante().getNombres()+" "+listaPxP.getParticipanteXProyectoDtoId().getParticipante().getApellidos());
@@ -246,7 +253,7 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 		
 		final Button btnEliminar = new Button();
 		btnEliminar.setId(etiquetaBtnEliminarP + listaPxP.getParticipanteXProyectoDtoId().getParticipante().getIdn());
-		//btnEliminar.addEventListener(Events.ON_CLICK, actionListenerActividades);	
+		btnEliminar.addEventListener(Events.ON_CLICK, actionListenerEliminar);	
 		btnEliminar.setTooltip("mAnexar");
 		btnEliminar.setLabel(Labels.getLabel("btnEliminar"));
 		btnEliminar.setVisible(true);
@@ -258,7 +265,6 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	public void gridAsesores(int idProyecto) {
 		Rows rows = gridAsesores.getRows();
 		ArrayList<AsesorXProyectoDto> asesores = asesorXProyectoNgc.buscarAsesorXProyecto(idProyecto);
-		System.out.println("trajo la info");
 		for(AsesorXProyectoDto listaAxP:asesores){
 			rows.appendChild(construirFilaAsesores(listaAxP));
 			System.out.println("asesores: "+listaAxP.getAsesorXProyectoDtoId().getAsesor().getNombres()+" "+listaAxP.getAsesorXProyectoDtoId().getAsesor().getApellidos());
@@ -295,7 +301,7 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 		
 		final Button btnEliminar = new Button();
 		btnEliminar.setId(etiquetaBtnEliminarA + listaAxP.getAsesorXProyectoDtoId().getAsesor().getIdn());
-		//btnEliminar.addEventListener(Events.ON_CLICK, actionListenerActividades);	
+		btnEliminar.addEventListener(Events.ON_CLICK, actionListenerEliminar);	
 		btnEliminar.setTooltip("mAnexar");
 		btnEliminar.setLabel(Labels.getLabel("btnEliminar"));
 		btnEliminar.setVisible(true);
@@ -310,4 +316,29 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 			grid.appendChild(new Rows());
 		}
 	}
+	
+	EventListener<Event> actionListenerEliminar = new SerializableEventListener<Event>() {
+		public void onEvent(Event event) throws Exception {	
+			Row filaAEliminar = ((Row) ((Button)event.getTarget()).getParent());
+			if( (filaAEliminar != null) ){
+				filaAEliminar.setParent(null);
+			}
+		}
+	};	
+	
+	public void onClick$btnAgregarAsesores(Event ev) throws IOException{
+		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/crearProyecto.zul") ;
+		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+		Window win = null;
+		try {
+			win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(div.getFirstChild()!=null){
+			div.removeChild(div.getFirstChild());
+		}
+		div.appendChild(win);	
+	}
+	
 } 
