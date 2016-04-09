@@ -132,6 +132,7 @@
  		<property name="objetivoEspecificoNgc" ref="beanObjetivoEspecificoNgc"></property>
  		<property name="tiposDeProyectoNgc" ref="beanTiposDeProyectoNgc"></property>
  		<property name="modalidadesDelProyectoNgc" ref="beanModalidadesDelProyectoNgc"></property>
+ 		<property name="personaNgc" ref="beanPersonaNgc"></property>
  	</bean> 
  	
  	<!-- BEANS PARA LOS NEGOCIOS -->

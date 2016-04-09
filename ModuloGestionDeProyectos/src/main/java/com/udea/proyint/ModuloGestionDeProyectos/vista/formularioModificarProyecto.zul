@@ -87,11 +87,43 @@
 						<rows>							
 						</rows>
 					</grid>
-					<separator height="5px"></separator>
-					<hbox>
-						<button id="btnAgregarAsesores" label="${labels.btnAgregar}"
-							style="border:1px solid black" />
-					</hbox>	
+					<div>
+						<hbox align="center">
+							<hbox align="left">
+								<label id="lblBusquedaAsesores" value="${labels.lblBusquedaAsesores}" style="color:black;font-weight:bold;font-size:15px" />
+							</hbox>
+							<hbox align="right">
+								<button id="buscarAsesores" label="${labels.buscar}" style="border:1px solid black" />
+							</hbox>
+							<hbox>
+								<button id="limpiarAsesores" label="${labels.btnLimpiar}" style="border:1px solid black" />
+							</hbox>
+						</hbox>						
+					</div>
+					<grid width="615px" id="gridBusquedaAsesores"
+						sclass="sidebar">
+						<auxhead sclass="category-center">
+							<auxheader colspan="5" align="left">
+								<combobox id="cbxTipoIDAsesores" width="185px" placeholder="${labels.cbxTipoIdentificacion}" />
+								<textbox id="tbxIDAsesores" instant="true"  width="115px" placeholder="${labels.tbxIdentificacion}"/>
+								<textbox id="tbxNombresAsesores" instant="true" width="142px" placeholder="${labels.tbxNombres}"/>
+								<textbox id="tbxApellidosAsesores" instant="true" width="142px" placeholder="${labels.tbxApellidos}"/>									
+							</auxheader>
+						</auxhead>
+						<columns sizable="true">
+							<column width="144px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clTipoIdentificacion}"/>
+							<column width="114px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clIdentificacion}"/>
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clNombres}"/>
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold" label="${labels.clApellidos}"/>
+							<column hflex="1" align="center" />
+						</columns>
+						<rows>							
+						</rows>
+					</grid>
 					<separator height="5px"></separator>
 				</div>
 				<separator height="1px"></separator>
@@ -114,11 +146,56 @@
 						<rows>							
 						</rows>
 					</grid>
-					<separator height="5px"></separator>
-					<hbox>
-						<button id="btnAgregarParticipantes" label="${labels.btnAgregar}"
-							style="border:1px solid black" />
-					</hbox>	
+					<div>
+						<hbox align="center">
+							<hbox align="left">
+								<label id="lblBusquedaParticipantes"
+									value="${labels.lblBusquedaParticipantes}"
+									style="color:black;font-weight:bold;font-size:15px" />
+							</hbox>
+							<hbox align="right">
+								<button id="buscarParticipantes"
+											label="${labels.buscar}" style="border:1px solid black" />
+							</hbox>
+							<hbox>
+								<button id="limpiarParticipantes" label="${labels.btnLimpiar}" style="border:1px solid black" />
+							</hbox>
+						</hbox>						
+					</div>
+					<grid width="615px" id="gridBusquedaParticipantes"
+						sclass="sidebar">
+						<auxhead sclass="category-center">
+							<auxheader colspan="5" align="left">
+								<combobox id="cbxTipoIDParticipantes"
+									width="185px" placeholder="${labels.cbxTipoIdentificacion}" />
+								<textbox id="tbxIDParticipantes"
+									instant="true" placeholder="${labels.tbxIdentificacion}"
+									width="115px" value="" />
+								<textbox id="tbxNombresParticipantes"
+									instant="true" placeholder="${labels.tbxNombres}" width="142px"
+									value="" />
+								<textbox id="tbxApellidosParticipantes"
+									instant="true" placeholder="${labels.tbxApellidos}"
+									width="142px" value="" />
+							</auxheader>
+						</auxhead>
+						<columns sizable="true">
+							<column width="144px" align="center"
+								style="color:black;font-weight:bold"
+								label="${labels.clTipoIdentificacion}" />
+							<column width="114px" align="center"
+								style="color:black;font-weight:bold"
+								label="${labels.clIdentificacion}" />
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold"
+								label="${labels.clNombres}" />
+							<column width="139px" align="center"
+								style="color:black;font-weight:bold"
+								label="${labels.clApellidos}" />
+							<column hflex="1" align="center" />
+						</columns>
+						<rows></rows>
+					</grid>
 					<separator height="5px"></separator>
 				</div>
 				<separator height="1px"></separator>

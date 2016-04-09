@@ -560,13 +560,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	public void onClick$buscarAsesores(Event ev) {
 		limpiarRows(gridBusquedaAsesores);
 		Comboitem comboItem=cbxTipoIDAsesores.getSelectedItem();
-		String tipoId=null;
-		if( comboItem!=null ){
-			tipoId= comboItem.getId();
-			if( (tipoId!=null) && (tipoId.length()>=6) ){ 
-				tipoId=tipoId.substring(6);
-			}
-		}		
+		String tipoId=obtenerTipoIdDeComboitem(comboItem);				
 		String id=tbxIDAsesores.getText();
 		String nombres=tbxNombresAsesores.getText();
 		String apellidos=tbxApellidosAsesores.getText();
@@ -585,9 +579,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 		limpiarRows(gridBusquedaAsesores);
 	}
 	
-	public void onClick$buscarParticipantes(Event ev) {	
-		limpiarRows(gridBusquedaParticipantes);
-		Comboitem comboItem=cbxTipoIDParticipantes.getSelectedItem();
+	public String obtenerTipoIdDeComboitem(Comboitem comboItem){
 		String tipoId=null;
 		if( comboItem!=null ){
 			tipoId= comboItem.getId();
@@ -595,6 +587,13 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 				tipoId=tipoId.substring(6);
 			}
 		}
+		return tipoId;		
+	}
+	
+	public void onClick$buscarParticipantes(Event ev) {	
+		limpiarRows(gridBusquedaParticipantes);
+		Comboitem comboItem=cbxTipoIDParticipantes.getSelectedItem();
+		String tipoId=obtenerTipoIdDeComboitem(comboItem);		
 		String id=tbxIDParticipantes.getText();
 		String nombres=tbxNombresParticipantes.getText();
 		String apellidos=tbxApellidosParticipantes.getText();
@@ -607,7 +606,7 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 				 }
 			 }		       
 		}		
-	}
+	}	
 	
 	public void onClick$limpiarParticipantes(Event ev) {	
 		limpiarRows(gridBusquedaParticipantes);
