@@ -12,4 +12,6 @@ public interface AsesorXProyectoNgcInt {
 
 	public ArrayList<AsesorXProyectoDto> buscarAsesorXProyecto(int idProyecto);
 
+	public void asesoresAEliminar(ArrayList<AsesorXProyectoDto> listaAsesoresAEliminar);
+
 }

@@ -11,5 +11,7 @@ public interface AsesorXProyectoDaoInt {
 			UsuarioDto usuarioDto, Integer idnEstado);
 
 	public ArrayList<AsesorXProyectoDto> buscarAsesorXProyecto(int idProyecto);
+
+	public void asesoresAEliminar(ArrayList<AsesorXProyectoDto> listaAsesoresAEliminar);
 	
 }

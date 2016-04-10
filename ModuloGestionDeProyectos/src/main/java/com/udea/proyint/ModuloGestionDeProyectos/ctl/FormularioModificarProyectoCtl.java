@@ -74,6 +74,7 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	private Textbox tbxIDParticipantes;
 	private Textbox tbxNombresParticipantes;
 	private Textbox tbxApellidosParticipantes;	
+	private Button btnGuardar;
 	
 	private Datebox dateFechaInicial;
 	private Datebox dateFechaFinal;
@@ -116,6 +117,8 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	private String parteIdRowBusquedaParticipantes="rbp_";
 		
 	private int idResponsableDelProyecto=-1;
+	private ArrayList<AsesorXProyectoDto> listaAsesoresAEliminar = new ArrayList<AsesorXProyectoDto>();
+	private ArrayList<ParticipanteXProyectoDto> listaParticipantesAEliminar = new ArrayList<ParticipanteXProyectoDto>();
 	
 	
 //	private Array
@@ -256,6 +259,8 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 	}
 
 	public Row construirFilaParticipantes(ParticipanteXProyectoDto listaPxP) {
+		
+		//System.out.println("listaPxP: participante: "+listaPxP.getParticipanteXProyectoDtoId().getParticipante().getIdn()+" proyecto: "+listaPxP.getParticipanteXProyectoDtoId().getProyecto().getIdn());
 		final Row row = new Row();
 		row.setId(etiquetaRowP + listaPxP.getParticipanteXProyectoDtoId().getParticipante().getIdn());
 		
@@ -285,11 +290,12 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 		
 		final Button btnEliminar = new Button();
 		btnEliminar.setId(etiquetaBtnEliminarP + listaPxP.getParticipanteXProyectoDtoId().getParticipante().getIdn());
-		btnEliminar.addEventListener(Events.ON_CLICK, actionListenerEliminar);	
+		btnEliminar.addEventListener(Events.ON_CLICK, actionListenerEliminarParticipante);	
 		btnEliminar.setTooltip("mAnexar");
 		btnEliminar.setLabel(Labels.getLabel("btnEliminar"));
 		btnEliminar.setVisible(true);
 		row.appendChild(btnEliminar);
+		row.setAttribute("ParticipanteXProyectoDto", listaPxP);
 		
 		return row;
 	}
@@ -333,7 +339,7 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 		
 		final Button btnEliminar = new Button();
 		btnEliminar.setId(etiquetaBtnEliminarA + listaAxP.getAsesorXProyectoDtoId().getAsesor().getIdn());
-		btnEliminar.addEventListener(Events.ON_CLICK, actionListenerEliminar);	
+		btnEliminar.addEventListener(Events.ON_CLICK, actionListenerEliminarAsesor);	
 		btnEliminar.setTooltip("mAnexar");
 		btnEliminar.setLabel(Labels.getLabel("btnEliminar"));
 		btnEliminar.setVisible(true);
@@ -349,12 +355,25 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 		}
 	}
 	
-	EventListener<Event> actionListenerEliminar = new SerializableEventListener<Event>() {
+	EventListener<Event> actionListenerEliminarAsesor = new SerializableEventListener<Event>() {
 		public void onEvent(Event event) throws Exception {	
 			Row filaAEliminar = ((Row) ((Button)event.getTarget()).getParent());
 			if( (filaAEliminar != null) ){
 				filaAEliminar.setParent(null);
 			}
+			System.out.println("elimino asesor");
+			listaAsesoresAEliminar.add((AsesorXProyectoDto) filaAEliminar.getAttribute("AsesorXProyectoDto"));
+		}
+	};	
+	
+	EventListener<Event> actionListenerEliminarParticipante = new SerializableEventListener<Event>() {
+		public void onEvent(Event event) throws Exception {	
+			Row filaAEliminar = ((Row) ((Button)event.getTarget()).getParent());
+			if( (filaAEliminar != null) ){
+				filaAEliminar.setParent(null);
+			}
+			System.out.println("elimino la participante");
+			listaParticipantesAEliminar.add((ParticipanteXProyectoDto) filaAEliminar.getAttribute("ParticipanteXProyectoDto"));
 		}
 	};	
 	
@@ -652,6 +671,16 @@ public class FormularioModificarProyectoCtl extends GenericForwardComposer{
 		}else{
 			return new ArrayList<UsuarioDto>();
 		}		
+	}
+	
+	public void onClick$btnGuardar(Event ev) throws IOException{
+		asesorXProyectoNgc.asesoresAEliminar(listaAsesoresAEliminar);
+		for(AsesorXProyectoDto lista:listaAsesoresAEliminar){
+			System.out.println("Aseores a eliminar: "+lista.getAsesorXProyectoDtoId().getAsesor().getNombres());
+		}
+		for(ParticipanteXProyectoDto lista2:listaParticipantesAEliminar){
+			System.out.println("Participantes a eliminar: "+lista2.getParticipanteXProyectoDtoId().getParticipante().getNombres());
+		}
 	}
 	
 } 

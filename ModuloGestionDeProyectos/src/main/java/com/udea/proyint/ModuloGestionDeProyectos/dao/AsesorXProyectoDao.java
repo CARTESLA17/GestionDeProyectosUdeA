@@ -66,4 +66,28 @@ public class AsesorXProyectoDao extends HibernateDaoSupport implements AsesorXPr
 
 	}
 
+	public void asesoresAEliminar(ArrayList<AsesorXProyectoDto> listaAsesoresAEliminar) {
+		int idProyecto;
+		int idAsesor;
+		Session session = null;
+		try{
+			session = this.getSession();
+			for(AsesorXProyectoDto lista:listaAsesoresAEliminar){
+				idProyecto = lista.getAsesorXProyectoDtoId().getProyecto().getIdn();
+				System.out.println("idProyecto desde el Dao: "+idProyecto);
+				idAsesor = lista.getAsesorXProyectoDtoId().getAsesor().getIdn();
+				System.out.println("idAsesor desde el Dao: "+idAsesor);
+				Query query=session.createQuery("delete axp from AsesorXProyectoDto axp where axp.asesorXProyectoDtoId.proyecto.idn=? and axp.asesorXProyectoDtoId.asesor.idn=?");
+				query.setInteger(1, idProyecto);
+				query.setInteger(2, idAsesor);
+			}
+		}catch(HibernateException e){
+			e.printStackTrace();
+		}finally{
+			if(session!=null){
+				session.close();
+			}
+		}
+	}
+
 }
