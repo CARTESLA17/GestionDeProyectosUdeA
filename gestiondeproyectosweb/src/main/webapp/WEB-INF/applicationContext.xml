@@ -123,7 +123,12 @@
  	</bean> 
  	
  	<bean id="beanVentanaTareasCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.VentanaTareasCtl" scope="prototype"> 
-   
+   		<!-- <property name="actividadesNgc" ref="beanActividadesNgc"></property> -->
+  	</bean>
+  	
+  	<bean id="beanLCambiarEstadoCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.CambiarEstadoCtl" scope="prototype"> 
+   		<property name="estadosDelProyectoNgc" ref="beanEstadosDelProyectoNgc"></property>	
+   		<property name="proyectoNgc" ref="beanProyectoNgc"></property>	
   	</bean>
   	
   	<bean id="beanFormularioModificarProyectoCtl" class="com.udea.proyint.ModuloGestionDeProyectos.ctl.FormularioModificarProyectoCtl" scope="prototype"> 
@@ -155,6 +160,10 @@
 	<bean id="beanProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ProyectoNgc" scope="singleton">
 		<property name="proyectoDao" ref="beanProyectoDao"></property>
 	</bean>
+	
+    <!-- <bean id="beanActividadesNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.ActividadesNgc" scope="singleton">
+		<property name="actividades" ref="beanActividades"></property>
+	</bean> -->
 	
 	<bean id="beanEstadosDelProyectoNgc" class="com.udea.proyint.ModuloGestionDeProyectos.ngc.EstadosDelProyectoNgc" scope="singleton">
 		<property name="estadosDelProyectoDao" ref="beanEstadosDelProyectoDao"></property>
