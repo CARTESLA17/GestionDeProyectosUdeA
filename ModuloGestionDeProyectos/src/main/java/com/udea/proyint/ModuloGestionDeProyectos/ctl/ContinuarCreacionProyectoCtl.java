@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.tuple.IdentifierProperty;
 import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -25,6 +26,7 @@ import org.zkoss.zul.Window;
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
 import com.udea.proyint.Dominio.dto.ProyectoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
+import com.udea.proyint.ModuloGestionDeProyectos.ngc.ProyectoNgcInt;
 
 /**
  * 
@@ -41,10 +43,16 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 	private String labelBoton="lb_";
 	private ObjetivoEspecificoDto objetivo = new ObjetivoEspecificoDto();
 	
+	private ProyectoDto proyecto;
+	private ProyectoNgcInt proyectoNgc;
+	
 	private final String ESTADO_OBJ_ESP_ABIERTO="Abierto";
 	
 	Div div = null;
 	
+	public void setProyectoNgc(ProyectoNgcInt proyectoNgc) {
+		this.proyectoNgc = proyectoNgc;
+	}	
 	
 	public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp); 
@@ -108,7 +116,7 @@ public class ContinuarCreacionProyectoCtl extends GenericForwardComposer{
 	
 	
 	public void onClick$btnCancelar(Event ev) {
-		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/crearProyecto.zul") ;
+		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/formularioModificarProyecto.zul") ;
 		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
 		Window win = null;
 		try {

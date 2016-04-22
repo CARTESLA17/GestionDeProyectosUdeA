@@ -30,7 +30,7 @@ public class ActividadesDao extends HibernateDaoSupport implements ActividadesDa
 		return actividades;
 	}
 
-	public void guardarActividades(ArrayList<ActividadesDto> listaActividades) {
+	public ActividadesDto guardarActividades(ArrayList<ActividadesDto> listaActividades, ActividadesDto actividades) {
 		org.hibernate.Transaction tx = null;
 		Session session = null;
 		try{
@@ -45,6 +45,7 @@ public class ActividadesDao extends HibernateDaoSupport implements ActividadesDa
 		}finally {
 			session.close();
 		}
+		return actividades;
 	}
 
 	public void guardarActividad(ActividadesDto actividad) {

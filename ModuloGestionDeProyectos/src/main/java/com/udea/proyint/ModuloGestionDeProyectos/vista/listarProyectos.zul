@@ -22,7 +22,7 @@
 							</hbox>							
 						</hbox>						
 					</div>
-					<grid width="870px" id="gridListarProyectos"
+					<grid width="950px" id="gridListarProyectos"
 						sclass="sidebar">
 						<columns sizable="true">
 							<column width="170px" align="center"
@@ -40,7 +40,7 @@
 							<column width="130px" align="center"
 								style="color:black;font-weight:bold" label="${labels.clAcciones}"/>
 							<column hflex="1" align="center"
-								style="color:black;font-weight:bold" label="${labels.clAcciones}"/>
+								style="color:black;font-weight:bold" label="${labels.clCambiarEstado}"/>
 						</columns>
 						<rows>							
 						</rows>

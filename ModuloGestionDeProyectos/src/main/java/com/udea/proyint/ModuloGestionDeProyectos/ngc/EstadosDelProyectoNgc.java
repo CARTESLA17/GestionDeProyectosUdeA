@@ -24,4 +24,7 @@ public class EstadosDelProyectoNgc implements EstadosDelProyectoNgcInt {
 		return estadosDelProyectoDao.buscarEstadosDelProyecto();
 	}
 
+	public String nombre(int id){
+		return estadosDelProyectoDao.nombre(id);
+	}
 }

@@ -10,7 +10,7 @@ public ArrayList<ActividadesDto> listarActividadesxObjetivo(Integer idnObjetivoE
 	
 	public ActividadesDto listarUnaActividad(Integer identificacionActividad);
 	
-	public void guardarActividades(ArrayList<ActividadesDto> listaActividades);
+	public ActividadesDto guardarActividades(ArrayList<ActividadesDto> listaActividades, ActividadesDto actividades);
 	
 	public void guardarActividad(ActividadesDto actividad);
 	

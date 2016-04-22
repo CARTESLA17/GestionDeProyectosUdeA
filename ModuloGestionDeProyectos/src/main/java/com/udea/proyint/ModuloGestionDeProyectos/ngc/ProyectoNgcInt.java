@@ -2,6 +2,7 @@ package com.udea.proyint.ModuloGestionDeProyectos.ngc;
 
 import java.util.ArrayList;
 
+import com.udea.proyint.Dominio.dto.EstadoDelProyectoDto;
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
 import com.udea.proyint.Dominio.dto.ProyectoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
@@ -14,5 +15,7 @@ public interface ProyectoNgcInt {
 	public ArrayList<ProyectoDto> buscarProyectosPorEstadoYRolResponsable(UsuarioDto usuarioDto, Integer idnEstado);
 	
 	public ProyectoDto buscarProyectoModificar(int idProyecto);
+	
+	public void actualizarProyecto(int id, ProyectoDto proyectoDto);
 
 }

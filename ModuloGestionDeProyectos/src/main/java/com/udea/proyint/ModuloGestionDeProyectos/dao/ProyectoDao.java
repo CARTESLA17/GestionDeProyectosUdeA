@@ -3,6 +3,8 @@ package com.udea.proyint.ModuloGestionDeProyectos.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Spring;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -11,6 +13,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.udea.proyint.Dominio.dto.AsesorXProyectoDto;
 import com.udea.proyint.Dominio.dto.AsesorXProyectoDtoId;
+import com.udea.proyint.Dominio.dto.EstadoDelProyectoDto;
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
 import com.udea.proyint.Dominio.dto.ParticipanteXProyectoDto;
 import com.udea.proyint.Dominio.dto.ParticipanteXProyectoDtoId;
@@ -130,5 +133,30 @@ public class ProyectoDao extends HibernateDaoSupport implements ProyectoDaoInt{
 		return proyectoDto;
 	}
 		
+	public void actualizar(int id, ProyectoDto proyectoDto){
+		Session session = null;
+		Transaction tx=null;
+		try{			
+			session = this.getSession();
+			ProyectoDto proyectoDtoAux = null;
+			Query query=session.createQuery("select p from ProyectoDto p where p.idn=?");
+			query.setInteger(0,id);
+			List<ProyectoDto> lista=query.list();
+			if( (lista!=null) && (lista.size()==1)){
+				proyectoDtoAux=lista.get(0);
+				}
+			proyectoDtoAux.setEstadoDelProyecto(proyectoDto.getEstadoDelProyecto());
+			tx=session.beginTransaction();
+			session.save(proyectoDtoAux);
+			tx.commit();
+		}catch(HibernateException e){
+			e.printStackTrace();
+		}finally{
+			if(session!=null){
+				session.close();
+			}
+		}
+	}
 
 }
+

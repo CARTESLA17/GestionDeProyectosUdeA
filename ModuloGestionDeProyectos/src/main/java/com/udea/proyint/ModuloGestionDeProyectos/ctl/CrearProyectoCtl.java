@@ -88,6 +88,8 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	private Textbox tbxObjetivoEspecifico;
 	private Textbox tbxPorcentaje;
 	
+	private ProyectoDto proyecto;
+	
 	/**
 	 * Cantidad de filas que tendran los textbox para los objetivos especificos.
 	 */
@@ -209,43 +211,13 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 		}else{
 			Executions.sendRedirect("index.zul");	
 		}
-        if(Sessions.getCurrent().getAttribute("idProyecto")!= null){
-        	cargarNombreResponsableDelProyecto();
-        	cargarCbxTiposDeProyecto();
-	        cargarCbxModalidades();
-        	tbxNombreProyecto.setText((String)Sessions.getCurrent().getAttribute("nombreDelProyecto"));
-        	tbxObjetivoGeneral.setText((String)Sessions.getCurrent().getAttribute("objetivoGeneral"));
-        	//dateFechaInicial.setText(Sessions.getCurrent().getAttribute("fechaInicial").toString());
-        	//dateFechaFinal.setText(Sessions.getCurrent().getAttribute("fechaFinal").toString());
-        	if( (Sessions.getCurrent().getAttribute("listadoAsesores"))!=null ){
-        		ArrayList<UsuarioDto> asesores =(ArrayList<UsuarioDto> ) Sessions.getCurrent().getAttribute("listadoAsesores");
-        		for(UsuarioDto asesor: asesores){
-        			gridAsesores.getRows().appendChild(construirFilaIntegranteAsesor(asesor));
-        		}
-        	}
-        	if( (Sessions.getCurrent().getAttribute("listadoParticipantes"))!=null ){
-        		ArrayList<UsuarioDto> participantes =(ArrayList<UsuarioDto> ) Sessions.getCurrent().getAttribute("listadoParticipantes");
-        		for(UsuarioDto participante: participantes){
-        			gridParticipantes.getRows().appendChild(construirFilaIntegranteParticipante(participante));
-        		}
-        	}
-        	if( (Sessions.getCurrent().getAttribute("objetivosEspecificos"))!=null ){
-    			ArrayList<ObjetivoEspecificoDto> listaObejtivoEspecifico = (ArrayList<ObjetivoEspecificoDto>) Sessions.getCurrent().getAttribute("objetivosEspecificos");
-    			for(ObjetivoEspecificoDto objEspecificos: listaObejtivoEspecifico){
-    				anexarNuevaFilaObjetivoEsp();
-    			}	
-    			Sessions.getCurrent().setAttribute("idProyecto2", null);
-    		}	
-        	
-        }else{
-	        cargarNombreResponsableDelProyecto();
-	        cargarCbxTiposDeProyecto();
-	        cargarCbxModalidades();
-	        anexarNuevaFilaObjetivoEsp();
-	        cargarTiposDeIDsEnAsesores();
-	        cargarTiposDeIDsEnParticipantes();
+	    cargarNombreResponsableDelProyecto();
+	    cargarCbxTiposDeProyecto();
+	    cargarCbxModalidades();
+	    anexarNuevaFilaObjetivoEsp();
+	    cargarTiposDeIDsEnAsesores();
+	    cargarTiposDeIDsEnParticipantes();
         }
-    }
 	
 	/**
 	 * Metodo que carga los tipos de identificacion en la zona de busqueda de
@@ -1006,46 +978,25 @@ public class CrearProyectoCtl extends GenericForwardComposer{
 	
 	public void onClick$btnContinuar(Event ev) throws IOException {
 		if (verificarDatosFormularioCrearProyecto()) {
-			
-			/*if( (proyectoDto.getIdn()!=null) && (proyectoDto.getIdn()!=0) ){
-				EventListener<ClickEvent> clickListener = new EventListener<Messagebox.ClickEvent>() {
-		            public void onEvent(ClickEvent event) throws Exception {
-		            	activarEventoQueueCargarVentanaMenu();
-		            }
-		        };
-		        Messagebox.show(Labels.getLabel("mensajeProyectoCreado")+" "+proyectoDto.getIdn(),Labels.getLabel("tituloMensajeProyectoCreado"), new Messagebox.Button[]{
-		               Messagebox.Button.OK }, org.zkoss.zul.Messagebox.QUESTION, clickListener);							
-			}*/
-			if(Sessions.getCurrent().getAttribute("idProyecto")!= null){
-				
-				if(Sessions.getCurrent().getAttribute("idProyecto")!= proyectoDto.getIdn()){
-					proyectoDto = proyectoNgc.almacenarProyecto(proyectoDto, listadoAsesores, listadoParticipantes, listadoObjetivosEspecificos);
-					cargarListaObjetivosEspecificos( listadoObjetivosEspecificos,gridObjetivosEspecificos.getRows(), usuarioDto.getUsuario());
-					Sessions.getCurrent().setAttribute("idProyecto", proyectoDto.getIdn());
-					Sessions.getCurrent().setAttribute("idProyecto2", proyectoDto.getIdn());
-					java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
-					java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
-					Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
-					if(div.getFirstChild()!=null){
-						div.removeChild(div.getFirstChild());
-					}
-					div.appendChild(win);
-				}else{
-					//Almacenar el proyecto modificado no uno nuevo
-				}
-			}else{
-				proyectoDto = proyectoNgc.almacenarProyecto(proyectoDto, listadoAsesores, listadoParticipantes, listadoObjetivosEspecificos);
-				cargarListaObjetivosEspecificos( listadoObjetivosEspecificos,gridObjetivosEspecificos.getRows(), usuarioDto.getUsuario());
+			proyectoDto = proyectoNgc.almacenarProyecto(proyectoDto, listadoAsesores, listadoParticipantes, listadoObjetivosEspecificos);
+			if( (proyectoDto.getIdn()!=null) && (proyectoDto.getIdn()!=0) ){
 				Sessions.getCurrent().setAttribute("idProyecto", proyectoDto.getIdn());
-				Sessions.getCurrent().setAttribute("idProyecto2", proyectoDto.getIdn());
-				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
-				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
-				Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
-				if(div.getFirstChild()!=null){
-					div.removeChild(div.getFirstChild());
+				int id = Integer.parseInt(Sessions.getCurrent().getAttribute("idProyecto").toString());	
+				proyecto = proyectoNgc.buscarProyectoModificar(id);
+				if(proyecto!=null){
+					Sessions.getCurrent().setAttribute("proyecto",proyecto);				
+				}else{
+
 				}
-				div.appendChild(win);
 			}
+			cargarListaObjetivosEspecificos( listadoObjetivosEspecificos,gridObjetivosEspecificos.getRows(), usuarioDto.getUsuario());			
+			java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
+			java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+			Window win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+			if(div.getFirstChild()!=null){
+				div.removeChild(div.getFirstChild());
+			}
+			div.appendChild(win);
 		}
 		
 	}

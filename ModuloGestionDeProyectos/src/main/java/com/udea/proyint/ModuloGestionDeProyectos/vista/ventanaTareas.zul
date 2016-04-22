@@ -28,9 +28,6 @@
 					</grid>
 				</div>
 			<hbox>
-				<button id="btnCancelar" label="${labels.btnCancelar}"
-						style="border:1px solid black" />
-				<separator height="20px"></separator>
 				<button id="btnGuardar" label="${labels.btnGuardar}"
 						style="border:1px solid black" />
 			</hbox>

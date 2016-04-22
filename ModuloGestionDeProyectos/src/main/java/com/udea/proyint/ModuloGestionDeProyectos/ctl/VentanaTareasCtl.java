@@ -1,6 +1,8 @@
 package com.udea.proyint.ModuloGestionDeProyectos.ctl;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,6 +11,7 @@ import org.zkoss.util.resource.Labels;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
+import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -27,9 +30,13 @@ import org.zkoss.zul.Messagebox.ClickEvent;
 
 import com.udea.proyint.Dominio.dto.ActividadesDto;
 import com.udea.proyint.Dominio.dto.EstadoDelProyectoDto;
+import com.udea.proyint.Dominio.dto.ModalidadesDelProyectoDto;
 import com.udea.proyint.Dominio.dto.ObjetivoEspecificoDto;
 import com.udea.proyint.Dominio.dto.ProyectoDto;
+import com.udea.proyint.Dominio.dto.TiposDeProyectoDto;
 import com.udea.proyint.Dominio.dto.UsuarioDto;
+import com.udea.proyint.ModuloGestionDeProyectos.ngc.ActividadesNgc;
+import com.udea.proyint.ModuloGestionDeProyectos.ngc.ActividadesNgcInt;
 
 /**
  * 
@@ -48,6 +55,8 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 	
 	private ArrayList<ActividadesDto> listaActividades= new ArrayList<ActividadesDto>();
 	private ObjetivoEspecificoDto objetivoEspecificoDto = new ObjetivoEspecificoDto();
+	private ActividadesNgcInt actividadesNgc;
+	private ActividadesDto actividadesDto;
 	
 	/**
 	 * Cantidad de filas que tendran los textbox para los objetivos especificos.
@@ -274,8 +283,17 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 		return row;
 	}
 	
+	public boolean verificarDatosFormularioTareas(){
+		if( porcentajeTotalTareas == 100){
+			cargarListaActividades( listaActividades,gridTareas.getRows(), usuarioDto.getUsuario());
+		}else{
+			Messagebox.show(Labels.getLabel("mensajeFaltanTareas"), Labels.getLabel("mensajeAlertaCrearProyecto"), Messagebox.OK, Messagebox.INFORMATION);
+			return false;		
+		}
+		return true;
+	}
+	
 	public void cargarListaActividades( ArrayList<ActividadesDto> listaActividades, Rows rows, String usuario){
-		ActividadesDto actividadesDto=null;
 		ProyectoDto proyectoDto = objetivoEspecificoDto.getProyecto();
 		listaActividades.clear();
 		List<Row> listaRows=rows.getChildren();		
@@ -292,18 +310,30 @@ public class VentanaTareasCtl extends GenericForwardComposer{
 		}	
 	}
 	
-	public void onClick$btnCancelar(Event ev) {
-		java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
-		java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
-		Window win = null;
-		try {
-			win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void onClick$btnGuardar(Event ev) {
+		if (verificarDatosFormularioTareas()) {
+			actividadesDto = actividadesNgc.ingresarActividades(listaActividades, actividadesDto);
+			java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/continuarCreacionProyecto.zul") ;
+			java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+			Window win = null;
+			try {
+				win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			if(div.getFirstChild()!=null){
+				div.removeChild(div.getFirstChild());
+			}
+			div.appendChild(win);
 		}
-		if(div.getFirstChild()!=null){
-			div.removeChild(div.getFirstChild());
-		}
-		div.appendChild(win);
+		
+	}
+
+	public ActividadesNgcInt getActividadesNgc() {
+		return actividadesNgc;
+	}
+
+	public void setActividadesNgc(ActividadesNgcInt actividadesNgc) {
+		this.actividadesNgc = actividadesNgc;
 	}
 }

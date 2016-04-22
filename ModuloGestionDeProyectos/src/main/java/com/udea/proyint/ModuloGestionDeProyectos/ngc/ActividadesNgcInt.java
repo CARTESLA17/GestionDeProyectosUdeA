@@ -6,7 +6,7 @@ import com.udea.proyint.Dominio.dto.ActividadesDto;
 
 public interface ActividadesNgcInt {
 	
-	public void ingresarActividades(ArrayList<ActividadesDto> listaActividades);
+	public ActividadesDto ingresarActividades(ArrayList<ActividadesDto> listaActividades, ActividadesDto actividades );
 	
 	public ArrayList<ActividadesDto> extraerActividades(Integer idnObjetivoEspecifico);
 

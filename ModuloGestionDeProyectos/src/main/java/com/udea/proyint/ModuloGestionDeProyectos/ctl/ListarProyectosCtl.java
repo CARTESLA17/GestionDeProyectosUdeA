@@ -177,7 +177,7 @@ public class ListarProyectosCtl extends GenericForwardComposer{
 		
 	}
 	
-	public Row construirFilaProyecto(ProyectoDto proyecto, int rol){	
+	public Row construirFilaProyecto(ProyectoDto proyecto,  final int rol){	
 		final Row row = new Row();
 		row.setId(parteIdRowProyecto+proyecto.getIdn());
 		Label lblNombre= new Label();
@@ -321,10 +321,7 @@ public class ListarProyectosCtl extends GenericForwardComposer{
 				}else{
 					System.out.println("fallo");
 				}
-				
-				
-				
-				
+
 				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/formularioModificarProyecto.zul") ;
 				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
 				Window win = null;
@@ -340,12 +337,39 @@ public class ListarProyectosCtl extends GenericForwardComposer{
 			}	
 			
 		};
+		EventListener<Event> actionListenerbtnCambiarEstado = new SerializableEventListener<Event>() {
+			public void onEvent(Event event) throws Exception {	
+				Row filaDelClick= ((Row) ((Button)event.getTarget()).getParent());
+				String getId = filaDelClick.getId();
+				int idProyecto = Integer.parseInt(getId.substring(3));
+				proyectoDto = proyectoNgc.buscarProyectoModificar(idProyecto);
+				Sessions.getCurrent().setAttribute("proyectos",proyectoDto);	
+				Sessions.getCurrent().setAttribute("rol",rol);
+				java.io.InputStream zulInput = this.getClass().getClassLoader().getResourceAsStream("com/udea/proyint/ModuloGestionDeProyectos/vista/cambiarEstado.zul") ;
+				java.io.Reader zulReader = new java.io.InputStreamReader(zulInput);
+				Window win = null;
+				try {
+					win = (Window)Executions.createComponentsDirectly(zulReader,"zul",null,null);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if(div.getFirstChild()!=null){
+					div.removeChild(div.getFirstChild());
+				}
+				div.appendChild(win);
+			}
+		};
 		Button btnAnexarAsesores=new Button();
 		//btnAnexarAsesores.setId(parteIdBtnAnexarAsesores+usuario.getIdn());
 		btnAnexarAsesores.addEventListener(Events.ON_CLICK, actionListenerAnexar);	
-		btnAnexarAsesores.setLabel(Labels.getLabel("btnAnexar"));
+		btnAnexarAsesores.setLabel(Labels.getLabel("btnEditar"));
 		btnAnexarAsesores.setVisible(true);
 		row.appendChild(btnAnexarAsesores);		
+		Button btnCambiarEstado=new Button();
+		btnCambiarEstado.addEventListener(Events.ON_CLICK, actionListenerbtnCambiarEstado);	
+		btnCambiarEstado.setLabel(Labels.getLabel("btnCambiarEstado"));
+		btnCambiarEstado.setVisible(true);
+		row.appendChild(btnCambiarEstado);	
 		row.setAlign("center");
 		row.setSclass("sidebar-fn");			
 		row.setVflex("min");

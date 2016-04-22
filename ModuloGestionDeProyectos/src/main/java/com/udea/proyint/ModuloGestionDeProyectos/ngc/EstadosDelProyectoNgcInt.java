@@ -7,5 +7,7 @@ import com.udea.proyint.Dominio.dto.EstadoDelProyectoDto;
 public interface EstadosDelProyectoNgcInt {
 	
 	public ArrayList<EstadoDelProyectoDto> buscarEstadosDelProyecto();
+	
+	public String nombre(int id);
 
 }

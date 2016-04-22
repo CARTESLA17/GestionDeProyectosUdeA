@@ -9,11 +9,11 @@ public class ActividadesNgc implements ActividadesNgcInt {
 	
 	private ActividadesDaoInt actividad;
 
-	public void ingresarActividades(ArrayList<ActividadesDto> listaActividades) {
+	public ActividadesDto ingresarActividades(ArrayList<ActividadesDto> listaActividades, ActividadesDto actividades) {
 		/**
 		 * Esto aqui de seguro sera modificado
 		 */
-		actividad.guardarActividades(listaActividades);
+		return actividad.guardarActividades(listaActividades, actividades);
 	}
 
 	public ArrayList<ActividadesDto> extraerActividades(Integer idnObjetivoEspecifico) {
